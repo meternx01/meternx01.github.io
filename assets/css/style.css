@@ -1,0 +1,107 @@
+/*body{
+    background-image: url("../images/whirlpool.png");
+}*/
+h1 {
+    font-family: 'Georgia', Times, Times New Roman, serif;
+    color: #ffffff;
+}
+
+h2 {
+    font-family: 'Georgia', Times, Times New Roman, serif;
+    color: #4aaaa5;
+    padding-left:10px;
+}
+
+* {
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    color: #777777
+}
+
+a:link, a:visited {
+    color: #777777;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #777777;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+i {
+	font-size: 12px;
+}
+
+#proPic {
+ float: left;
+ margin: 0 25px 10px 10px;
+}
+
+.headerBox {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    height: 88px;
+    padding: 0px 270px 0px 270px;
+    border-bottom: 3px solid #cccccc;
+}
+
+.headerName{
+    float: left;
+    width:33%;
+    padding: 5px;
+    background-color: #4aaaa5;
+    text-align: center;
+}
+
+.headerLinks{
+    float: right;
+    width:33%;
+    margin: 30px 0px;
+    text-align: center;
+}
+
+.mainBox {
+    /*background-color: #ffffff;*/
+    /*border-color: #dddddd;*/
+    width:100%;
+    height:500px;
+    background-image: url("../images/whirlpool.png");
+    padding-bottom: 20px;
+}
+
+.mainLeft{
+    float:left;
+    margin: 50px 0px 0px 270px;
+    /*position: relative;
+    left: 270px;*/
+    background-color: #ffffff;
+    border-color: #dddddd;
+    width:634px;
+    border: 3px solid #cccccc;
+}
+
+.mainRight{
+    float:left;
+    margin: 50px 0px 0px 50px;
+    background-color: #ffffff;
+    border-color: #dddddd;
+    width:264px;
+    border: 3px solid #cccccc;
+}
+
+.footerBox {
+    height:150px;
+    background-color: #666666;
+    border-top: 10px solid #4aaaa5;
+    padding-left: 270px;
+    text-align: center;
+}
+
+#footerText{
+    font-weight: bold;
+    color: #ffffff;
+    position: relative;
+    top: 30%;
+    height: 30%;
+    width:960px;
+}
