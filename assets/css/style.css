@@ -41,11 +41,14 @@ i {
 
 p {
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 14px;
 	display: block;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	margin-left: 0;
 	margin-right: 0;
+	line-height: 150%;
+	padding:0 10% 2% 5%;
 }
 
 hr{
