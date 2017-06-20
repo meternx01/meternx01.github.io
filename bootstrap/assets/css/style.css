@@ -1,0 +1,48 @@
+
+.navbar-brand {
+  padding: 0px;
+}
+
+.navbar-brand>img {
+  height: 100%;
+  /*padding: 15px;*/
+  width: auto;
+}
+
+body{
+	background-image: url("../images/whirlpool.png");
+}
+
+h2 {
+	font-family: 'Georgia', Times, Times New Roman, serif;
+	color: #4aaaa5;
+	font-weight: bold;
+}
+
+p {
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: 14px;
+	display: block;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 0;
+	margin-right: 0;
+	line-height: 150%;
+	color: #777777;
+}
+hr{
+	color: #dddddd;
+	background:#dddddd;
+	height:3px;
+
+}
+.col-md-6, .col-md-3{
+		background-color: #ffffff;
+		border: 3px solid #cccccc;
+}
+
+@media (max-width: 767px) {
+    .col-xs-12 {
+        margin-top:20px;
+    }
+}
