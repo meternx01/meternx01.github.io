@@ -1,44 +1,29 @@
-
-h1 {
-	font-family: 'Georgia', Times, Times New Roman, serif;
-	color: #ffffff;
-	font-size: 2em;
-	margin-top: 0.67em;
-	margin-bottom: 0.67em;
-	margin-left: 0;
-	margin-right: 0;
-	font-weight: bold;
+/*Following is for Navbar*/
+/*to put an image instead of text*/
+.navbar-brand {
+  padding: 0px;
 }
 
+.navbar-brand>img {	
+  height: 100%;
+  width: auto;
+}
+
+/*Modify Body for a background image and navbar padding*/
+body{
+	background-image: url("../images/whirlpool.png");
+	padding-top: 70px;
+}
+
+/*Define Text Style from Bootstrap to Teal and Bold*/
 h2 {
 	font-family: 'Georgia', Times, Times New Roman, serif;
 	color: #4aaaa5;
-	font-size: 1.5em;
-	padding-left:10px;
-	margin: 0.83em 0 0.83em 0;
 	font-weight: bold;
 }
 
-* {
-	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
-	color: #777777
-}
-
-a:link, a:visited {
-	color: #777777;
-	text-decoration: none;
-}
-
-a:hover, a:active {
-	color: #777777;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-i {
-	font-size: 12px;
-}
-
+/*Redefine p Style from Bootstrap to Gray and more*/
+/*Also resetting from a reset.css that I assume Bootstrap has*/
 p {
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
 	font-size: 14px;
@@ -48,170 +33,113 @@ p {
 	margin-left: 0;
 	margin-right: 0;
 	line-height: 150%;
-	padding:0 10% 2% 5%;
+	color: #777777;
 }
 
+/*Making a Horizontal Line thats bolder and Grey(ish)*/
 hr{
 	color: #dddddd;
 	background:#dddddd;
-	display: block;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-	margin-left: 0.5em;
-	margin-right: 0.5em;
-	border-style: inset;
-	border-width: 1px;
-	border:0;
 	height:3px;
-}
-
-#proPic {
-	float: left;
-	margin: 0 25px 10px 10px;
-}
-
-.headerBox {
-	background-color: #ffffff;
-	border-color: #cccccc;
-	height: 88px;
-	padding: 0px 270px 0px 270px;
-	border-bottom: 3px solid #cccccc;
-}
-
-.headerName{
-	float: left;
-	width:33%;
-	padding: 5px;
-	background-color: #4aaaa5;
-	text-align: center;
-}
-
-.headerLinks{
-	float: right;
-	width:33%;
-	margin: 30px 0px;
-	text-align: center;
-}
-
-.mainBox {
-	/*background-color: #ffffff;*/
-	/*border-color: #dddddd;*/
-	width:100%;
-	/*height:500px;*/
-	background-image: url("../images/whirlpool.png");
-	padding-bottom: 100px;
-	overflow:hidden;
 
 }
 
-.mainLeft{
-	float:left;
-	margin: 50px 0px 100px 270px;
-	/*position: relative;
-	left: 270px;*/
-	background-color: #ffffff;
-	border-color: #dddddd;
-	width:634px;
-	border: 3px solid #cccccc;
+/*
+boxText class defines the background color and the text of the main Panes
+used in Main Content and in the "Contact Me" pane
+*/
+.boxText{
+		background-color: #ffffff;
+		border: 3px solid #cccccc;
 }
 
-.mainRight{
-	float:left;
-	margin: 50px 0px 0px 50px;
-	background-color: #ffffff;
-	border-color: #dddddd;
-	width:264px;
-	border: 3px solid #cccccc;
+/*padBottom makes a small space at the bottom of a container to separate it from the border*/
+.padBottom
+{
+	padding-bottom: 10px;
 }
 
-.footerBox {
-	position: fixed;
-	height:100px;
-	left: 0;
-	bottom: 0;
-	width: 100%;
+/*padBottom makes a small space from the left of a container to separate it from the border*/
+.padLeft
+{
+	padding-left: 10px;
+}
+
+/*marginTop spaces from the bottom of the adjacent container to separate it from the border*/
+.marginTop
+{
+	margin-top: 15px;
+}
+
+/*
+footerBar is a class that defines the colors and borders of the footer row
+places a teal border at the top and a dark grey background
+Also centers any element that may be placed in the container vertically
+*/
+.footerBar {
 	background-color: #666666;
 	border-top: 10px solid #4aaaa5;
-	padding-left: 270px;
-	text-align: center;
+	padding: 20px 0 20px 0;
+	margin-top: 70px;
 }
 
-#footerText{
+/*
+footerText changes the text of the footer
+In this case its bold and White for contrast
+*/
+.footerText{
 	font-weight: bold;
 	color: #ffffff;
-	position: relative;
-	top: 30%;
-	height: 30%;
-	width:960px;
 }
 
-.imageleft
+/*buttonColor defines the color of the button and the text it contains*/
+.buttonColor
 {
-	position: relative;
-	float:left;
-	margin: 2.5% 7% 2% 10%;
-
+	background-color: #4aaaa5;
+	color: #ffffff;
 }
 
-.imageright
-{
-	position: relative;
-	float:left;
-	margin: 2.5% 10% 2% 7%;
-}
-
+/*
+center defines a box to be at the bottom of its parent with space below 
+and to the left and right of the parent
+In this case I made the background Teal and centered any text in this box
+*/
 .center {
 	position: absolute;
-	left: 0;
+	left: 10%;
+	right: 10%;
 	bottom: 10%;
-	width: 100%;
 	text-align: center;
 	padding: 5% 0 5% 0;
-	font-size: 18px;
 	background-color: #4aaaa5;
+}
+
+/*
+overlayText is the definition for the style of text that goes over an image
+In this example, I made it sized 1em and White and overwrote the p tag's margins
+*/
+.overlayText
+{
 	color: #ffffff;
 	font-size: 1em;
 	font-family: 'Georgia', Times, Times New Roman, serif;
-
+	/*to override the <p> tag style*/
+	margin-top: 0;	
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	line-height: 100%;
+	/*<p> style overridden!*/
 }
 
-.clearfix:after {
-	content: " "; /* Older browser do not support empty content */
-	visibility: hidden;
-	display: block;
-	height: 0;
-	clear: both;
-}
-
-input[type=text], select, textarea {
-    width: 80%;
-    padding: 12px;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    margin-left: 10%;
-    resize: vertical;
-}
-
-input[type=submit] {
-    background-color: #4aaaa5;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 10%;
-    margin-bottom: 16px;
-}
-
-input[type=submit]:hover {
-    background-color: #2f6a67;
-}
-
-label {
-	font-family: 'Georgia', Times, Times New Roman, serif;
-	font-size: 18px;
-	padding-left: 10%;
+/*The Following @media Query overrides 2 rezizing problems that bootstrap doesn't handle when smaller than a desktop*/
+@media (max-width: 767px) {
+    /*when looking as a phone, the panels in the bodies needed a bit more padding to look good*/
+	.col-xs-12 {
+        margin-top:20px;
+    }
+	/*when looking as a phone, the text in the overlays needed to be a bit bigger. Couldn't get scaling correct*/
+	.overlayText{
+		font-size: 1.5em;
+	}
 }

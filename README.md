@@ -1,4 +1,4 @@
-Homework Assignment 1.
+Homework Assignment 2.
 
 
-My Basic Portfolio!
+My Bootstrao Portfolio!
