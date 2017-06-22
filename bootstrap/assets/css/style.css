@@ -52,6 +52,11 @@ hr{
 	padding-left: 10px;
 }
 
+.marginTop
+{
+	margin-top: 15px;
+}
+
 .footerBar {
 	background-color: #666666;
 	border-top: 10px solid #4aaaa5;
@@ -70,8 +75,37 @@ hr{
 	color: #ffffff;
 }
 
+.center {
+	position: absolute;
+	left: 10%;
+	right: 10%;
+	bottom: 10%;
+	text-align: center;
+	padding: 5% 0 5% 0;
+	background-color: #4aaaa5;
+}
+
+.overlayText
+{
+	color: #ffffff;
+	font-size: 1em;
+	font-family: 'Georgia', Times, Times New Roman, serif;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	line-height: 100%;
+}
+
+.imageAndText {position: relative;} 
+    .imageAndText .col {position:
+        absolute; z-index: 1; top: 0; left: 0;}
+
 @media (max-width: 767px) {
     .col-xs-12 {
         margin-top:20px;
     }
+	.overlayText{
+		font-size: 1.5em;
+	}
 }
