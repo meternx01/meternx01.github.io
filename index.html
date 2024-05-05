@@ -1,103 +1,32 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<!--Header Info-->
-	<title>Jason McKinney's Portfolio</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> <!-- Bootstrap CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!-- My Modifying CSS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- jQuery (needed for hamburger menu) -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> <!-- Bootstrap JS (dependency for Hamburger Menu) -->
-
-	<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsive Design Meta Tag -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Challenge Timer</title>
 </head>
-
-<body>
-	<!-- Navbar -->
-	<nav class="navbar navbar-default navbar-fixed-top"> <!-- Bootstrap Default Navbar w/ Fixed top added -->
-		<!--Default Navbar from the Documentation-->
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">
-					<img alt="Brand" src="assets\images\profilePic.png">
-				</a>
-			</div>
-
-			<!-- My Links for the Right Side of navbar -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="">Home</a></li>	<!--Current Page-->
-					<li><a href="portfolio.html">Portfolio</a></li>	<!--Portfolio Link-->
-					<li><a href="contact.html">Contact</a></li>	<!--Contact Link-->
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!--/Navbar-->
-
-	<!--Main Container - Main Content-->
-	<div class="container-fluid">
-		
-		<!-- main row (R1)- separate body from footer -->
-		<div class="row">
-			<div class="col-md-offset-1 col-md-6 col-xs-12 boxText"> <!-- Left Main Column (R1C1) - Content of Page <7/12 includes left margin> -->
-				<!-- Container for R1C1 -->
-				<div class="container-fluid"> 
-					<div class="row">	<!-- Row for Title (R1) -->
-						<div class="col-md-12 col-xs-12">	<!-- Column (R1C1) <full length> -->
-							<h2>About Me</h2>
-							<hr/>
-						</div>
-						<div class="row"> <!-- Row for Picture and Text (R2) -->
-							<div class="col-md-4 col-xs-12">	<!-- Column (R2C1) <1/3> Image -->
-								<img src="assets/images/profilePic.png" class="img-responsive center-block" alt="Jason McKinney">
-							</div>
-							<div class=" col-md-8 col-xs-12 padLeft"> <!-- Column (R2C2) <2/3> Text w/ space between image and text -->
-								<p>Hi! I am Jason McKinney, a Computer Science Graduate, amateur coder, amateur radio operator, and a wannabe know-it-all. My ultimate goal is to be a Computerized Renassance Man. With my self taught. Now, I'm a good general purpose technologist. After breaking DOS in the early 90's, to building computers in the late 90's, to my formal training on how to code, finally almost 10 years of Fortune 500 Enterprise Support, I know many things from a wide range of technology. </p>
-							</div>
-						</div>
-						<div class="row">	<!-- Row for Text (R3) -->
-							<div class="col-md-12 col-xs-12">	<!-- Column (R3C1) <full length> Should be all text -->
-								<p>When I'm not being in front of a computer, I love aviation, radio, motorcycling, and gaming. <i>(Ok, I play games on computers..) </i> I am an amateur radio operator, look me up <a href="http://wireless2.fcc.gov/UlsApp/UlsSearch/license.jsp?licKey=1087226" text-decoration="underline">KD5KMA</a>. Obtained it when I was 16<i>ish</i>. So I understand the electromagnetic spectrum and how we can use it to communicate. I am learning photography slowly. I get the basics of exposure and depth of field, but I'm working on composition, for those awesome shots professionals get! </p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Container for R1C1 -->
-			</div>	<!-- /Left Main Column -->
-
-			<div class="col-md-offset-1 col-md-3 col-md-offset-1 col-xs-12 boxText"> <!-- Right Aux Column (R1C2) - Contact Me Pane <5/12 includes middle gap and right margin> -->
-				<!-- Container for R1C2 -->
-				<div class="container-fluid">
-					<div class="row">	<!-- Row for Title (R1) -->
-						<div class="col-md-12 col-xs-12"> <!-- Column (R1C1) <full length> -->
-							<h2>Contact Me</h2>
-							<hr/>
-						</div>
-						<div class="row">	<!-- Row for Link Pictures (R2) -->
-							<div class="col-md-12 col-xs-12 padBottom"> <!-- Column (R2C2) <full length> -->
-								<a href="https://github.com/meternx01"><img src="assets/images/github.svg" width=60 height=45 alt="Jason McKinney on Github" /> </a>	<!-- Github Link -->
-								<a href="https://www.linkedin.com/in/jason-mckinney-7a3919121"><img src="assets/images/square-linkedin.svg" width=60 height=45 alt="Jason McKinney on LinkedIn" /> </a>	<!-- LinkedIn Link -->
-								<a href="https://twitter.com/meterman"><img src="assets/images/square-twitter.svg"width=60 height=45 alt="Jason McKinney's Stack Overflow" /> </a>	<!-- StackOverflow Link -->
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Container for R1C2 -->
-			</div>	<!-- /Right Aux Column (R1C2) -->
-		</div>
-
-		<div class="row"> <!-- footer row (R2) -->
-			<div class="col-md-12 col-xs-12 footerBar">	<!-- Column (R1C1) <full length> CSS for Colors and Border -->
-				<p class="text-center footerText">© Copyright 2017 Jason McKinney </p>	<!-- Center text vertically and horizontally & colored text -->
-			</div>
-		</div>
-	</div>
-	<!--Main Container - Main Content-->
+<body class="bg-secondary">
+    <div class="container bg-gradient bg-dark p-2 m-2 shadow rounded-4" style="outline: 2px solid #00BB00;">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="display-4 text-center text-light">Limited Time Challenge</h2>
+                <p class="lead text-center mt-3 text-light">Time left for </p>
+                <h3 class="text-center text-light fs-1 fw-bolder" id="ChallengeName">Puzzle Master</h3>
+                <h2 class="text-center text-light fs-1 fw-bolder" id="ChallengeTimeRemaining">00:15:23</h3>
+                <p class=" text-center text-light" id="ChallengeNextTime">Ends at 14:00 PM</p>
+                <p class="text-center mt-4 text-light">Up Next:</p>
+                <p class="text-center text-light" id="UpNext">Puzzle Master</p>
+            </div>
+        </div>
+    </div>
+    <!-- Include Bootstrap JS and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js" integrity="sha512-dUlSLLkxslGILhPdCkALwk4szPhp3xmZIKFtlUD+O9Lslq41Aksmdt5OGqpomDoT4FsCUH70jQU8ezZHI3v1RQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="limitedtime.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
 </body>
+
 </html>
