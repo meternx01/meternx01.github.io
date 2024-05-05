@@ -76,7 +76,7 @@ function findNextChallengeTime() {
     const nextPeriod = (Math.floor(cPeriodCount) + 1) % challenges.length;
 
     // Set the next challenge time
-    nextChallengeTime = lastSunday.plus({ milliseconds: ((Math.floor(cPeriodCount) + 1) * challengePeriod) });
+    nextChallengeTime = lastSundayTime.plus({ milliseconds: ((Math.floor(cPeriodCount) + 1) * challengePeriod) });
 
     // Set the current and up next challenge names
     $("#ChallengeName").text(challenges[Math.floor(cPeriodCount) % challenges.length].Name);
