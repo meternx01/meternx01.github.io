@@ -1,4 +1,20 @@
-// Limited Time Challenges
+/**
+ * Limited Time Challenges for catseyexi.com
+ * Created by Meterman on 2022-5-5
+ *
+ * This website displays the upcoming challenge names and times in the
+ * Final Fantasy XI Limited Time Challenges. This was made for the schedule of Catseyexi.com.
+ * The challenges are updated every 4 hours.
+ * The times are based on the user's time zone.
+ * Information on the challenges comes from
+ * https://www.bg-wiki.com/ffxi/Category:Records_of_Eminence#Limited-time_Challenges.
+ *
+ * This code uses luxon [https://moment.github.io/luxon]. Thanks for your API!
+ * Additionally the code uses jQuery [https://jquery.com].
+ *
+ * All I ask, if you use and/or modify this code, please credit Meterman [github.com/meternx01].
+ *
+ */
 const challengePeriod = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 let cPeriodCount;
 let nextChallengeTime;
