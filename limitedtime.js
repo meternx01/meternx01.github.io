@@ -62,15 +62,17 @@ function populateChallenges(time) {
  * @param {DateTime} time - The time to calculate the start time from
  * @return {DateTime} The start time of the challenge period
  */
-function startTime(time,adjust) {
+function startTime(time, adjust) {
     currentJapanTime = time;
 
     // Find the last Sunday and subtract 108 seconds to get the start time
     const lastSunday = time.startOf('week').minus({ days: 1 });
-    if(adjust){
-    const lastSundayTime = lastSunday.minus({ seconds: 108 });}
-
-    return lastSundayTime;
+    if (adjust) {
+        return lastSunday.minus({ seconds: 108 });
+    }
+    else {
+        return lastSunday;
+    }
 }
 
 
@@ -87,7 +89,7 @@ function startTime(time,adjust) {
  * The current and up next challenge names and times are updated in the HTML.
  */
 function findNextChallengeTime() {
-    const lastSundayTime = startTime(DateTime.local().setZone('Asia/Tokyo'),1);  // Last Sunday at 10:00:00 AM JST
+    const lastSundayTime = startTime(DateTime.local().setZone('Asia/Tokyo'), 1);  // Last Sunday at 10:00:00 AM JST
 
     // Calculate the number of challenge periods that have passed
     const dayDiff = currentJapanTime.diff(lastSundayTime, 'milliseconds');  // Milliseconds since last Sunday
@@ -170,7 +172,7 @@ function timerTick() {
 }
 
 // Initialize
-challenges = populateChallenges(startTime(DateTime.local().setZone('Asia/Tokyo'),false));
+challenges = populateChallenges(startTime(DateTime.local().setZone('Asia/Tokyo'), false));
 findNextChallengeTime();
 beginTimer();
 
