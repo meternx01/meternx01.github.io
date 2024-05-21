@@ -26,46 +26,46 @@ var Duration = luxon.Duration;
 function populateChallenges(time) {
     return [
         { Name: "Magic Damage Kills", Description: "Kill 20 Experience Wielding Mobs with Magic Damage", Time: time },
-        { Name: "Vanquish Plantoids", Description: "Kill 20 Plantoids", Time: time.plus({ hours: 4 }) },
-        { Name: "Vanquish Amorphs", Description: "Kill 20 Amorphs", Time: time.plus({ hours: 8 }) },
-        { Name: "Vanquish Vermin", Description: "Kill 20 Vermin", Time: time.plus({ hours: 12 }) },
-        { Name: "Vanquish Arcana", Description: "Kill 20 Arcana", Time: time.plus({ hours: 16 }) },
+        { Name: "Vanquish Plantoids", Description: "Flytraps  Funguar  Goobbue  Mandragora  Morbol  Sabotender  Sapling  Treant", Time: time.plus({ hours: 4 }) },
+        { Name: "Vanquish Amorphs", Description: "Flan  Hecteyes  Leech  Sandworm  Slime  Slug  Worm", Time: time.plus({ hours: 8 }) },
+        { Name: "Vanquish Vermin", Description: "Antlion  Bee  Beetle  Chigoe  Crawler  Diremite  Fly  Gnat  Ladybug  Scorpion  Spider  Wamoura  Wamouracampa", Time: time.plus({ hours: 12 }) },
+        { Name: "Vanquish Arcana", Description: "Bomb  Cardian  Cluster  Detector  Doll  Evil Weapon  Golem  Khimaira  Magic Pot  Mimic  Snoll", Time: time.plus({ hours: 16 }) },
         { Name: "Gain Experience", Description: "Gain 5000 Experience/Limit Points", Time: time.plus({ hours: 20 }) },
-        { Name: "Vanquish Birds", Description: "Kill 20 Birds", Time: time.plus({ hours: 24 }) },
-        { Name: "Vanquish Lizards", Description: "Kill 20 Lizards", Time: time.plus({ hours: 28 }) },
-        { Name: "Vanquish Undead", Description: "Kill 20 Undead", Time: time.plus({ hours: 32 }) },
-        { Name: "Spoils (Seals)", Description: "Obtain 3 Beastmen-like Seals", Time: time.plus({ hours: 36 }) },
+        { Name: "Vanquish Birds", Description: "Amphiptere  Apkallu  Bat  Bat Trio  Cockatrice  Colibri  Greater Bird  Hippogryph  Lesser Bird", Time: time.plus({ hours: 24 }) },
+        { Name: "Vanquish Lizards", Description: "Adamantoise  Bugard  Eft  Hill Lizard  Peiste  Raptor  Wivre", Time: time.plus({ hours: 28 }) },
+        { Name: "Vanquish Undead", Description: "Corse  Doomed  Fomor  Ghost  Hound  Qutrub  Skeleton", Time: time.plus({ hours: 32 }) },
+        { Name: "Spoils (Seals)", Description: "Beastmen's Seal  Kindred's Seal...", Time: time.plus({ hours: 36 }) },
         { Name: "Crack Treasure Coffers", Description: "Open 10 Treasure Coffers", Time: time.plus({ hours: 40 }) },
-        { Name: "Vanquish Aquans", Description: "Kill 20 Aquans", Time: time.plus({ hours: 44 }) },
-        { Name: "Vanquish Amorphs", Description: "Kill 20 Amorphs", Time: time.plus({ hours: 48 }) },
-        { Name: "Vanquish Vermin", Description: "Kill 20 Vermin", Time: time.plus({ hours: 52 }) },
-        { Name: "Vanquish Arcana", Description: "Kill 20 Arcana", Time: time.plus({ hours: 56 }) },
+        { Name: "Vanquish Aquans", Description: "Crab  Frog  Pugil  Sea Monk  Uragnite", Time: time.plus({ hours: 44 }) },
+        { Name: "Vanquish Amorphs", Description: "Flan  Hecteyes  Leech  Sandworm  Slime  Slug  Worm", Time: time.plus({ hours: 48 }) },
+        { Name: "Vanquish Vermin", Description: "Antlion  Bee  Beetle  Chigoe  Crawler  Diremite  Fly  Gnat  Ladybug  Scorpion  Spider  Wamoura  Wamouracampa", Time: time.plus({ hours: 52 }) },
+        { Name: "Vanquish Arcana", Description: "Bomb  Cardian  Cluster  Detector  Doll  Evil Weapon  Golem  Khimaira  Magic Pot  Mimic  Snoll", Time: time.plus({ hours: 56 }) },
         { Name: "Gain Experience", Description: "Gain 5000 Experience/Limit Points", Time: time.plus({ hours: 60 }) },
         { Name: "Physical Damage Kills", Description: "Kill 20 Experience Wielding Mobs with Physical Damage", Time: time.plus({ hours: 64 }) },
-        { Name: "Vanquish Beasts", Description: "Kill 20 Beasts", Time: time.plus({ hours: 68 }) },
-        { Name: "Vanquish Undead", Description: "Kill 20 Undead", Time: time.plus({ hours: 72 }) },
+        { Name: "Vanquish Beasts", Description: "Behemoth  Buffalo  Cerberus  Coeurl  Dhalmel  Gnole  Manticore  Marid  Opo-opo  Rabbit  Ram  Sheep  Trger", Time: time.plus({ hours: 68 }) },
+        { Name: "Vanquish Undead", Description: "Corse  Doomed  Fomor  Ghost  Hound  Qutrub  Skeleton", Time: time.plus({ hours: 72 }) },
         { Name: "Spoils (Seals)", Description: "Obtain 3 Beastmen-like Seals", Time: time.plus({ hours: 76 }) },
         { Name: "Crack Treasure Chests", Description: "Open 10 Treasure Chests", Time: time.plus({ hours: 80 }) },
-        { Name: "Vanquish Aquans", Description: "Kill 20 Aquans", Time: time.plus({ hours: 84 }) },
+        { Name: "Vanquish Aquans", Description: "Crab  Frog  Pugil  Sea Monk  Uragnite", Time: time.plus({ hours: 84 }) },
         { Name: "Magic Damage Kills", Description: "Kill 20 Experience Wielding Mobs with Magic Damage", Time: time.plus({ hours: 88 }) },
-        { Name: "Vanquish Plantoids", Description: "Kill 20 Plantoids", Time: time.plus({ hours: 92 }) },
-        { Name: "Vanquish Arcana", Description: "Kill 20 Arcana", Time: time.plus({ hours: 96 }) },
+        { Name: "Vanquish Plantoids", Description: "Flytraps  Funguar  Goobbue  Mandragora  Morbol  Sabotender  Sapling  Treant", Time: time.plus({ hours: 92 }) },
+        { Name: "Vanquish Arcana", Description: "Bomb  Cardian  Cluster  Detector  Doll  Evil Weapon  Golem  Khimaira  Magic Pot  Mimic  Snoll", Time: time.plus({ hours: 96 }) },
         { Name: "Gain Experience", Description: "Gain 5000 Experience/Limit Points", Time: time.plus({ hours: 100 }) },
         { Name: "Physical Damage Kills", Description: "Kill 20 Experience Wielding Mobs with Physical Damage", Time: time.plus({ hours: 104 }) },
-        { Name: "Vanquish Beasts", Description: "Kill 20 Beasts", Time: time.plus({ hours: 108 }) },
-        { Name: "Vanquish Birds", Description: "Kill 20 Birds", Time: time.plus({ hours: 112 }) },
-        { Name: "Vanquish Lizards", Description: "Kill 20 Lizards", Time: time.plus({ hours: 116 }) },
+        { Name: "Vanquish Beasts", Description: "Behemoth  Buffalo  Cerberus  Coeurl  Dhalmel  Gnole  Manticore  Marid  Opo-opo  Rabbit  Ram  Sheep  Trger", Time: time.plus({ hours: 108 }) },
+        { Name: "Vanquish Birds", Description: "Amphiptere  Apkallu  Bat  Bat Trio  Cockatrice  Colibri  Greater Bird  Hippogryph  Lesser Bird", Time: time.plus({ hours: 112 }) },
+        { Name: "Vanquish Lizards", Description: "Adamantoise  Bugard  Eft  Hill Lizard  Peiste  Raptor  Wivre", Time: time.plus({ hours: 116 }) },
         { Name: "Crack Treasure Caskets", Description: "Open 10 Treasure Caskets", Time: time.plus({ hours: 120 }) },
-        { Name: "Vanquish Aquans", Description: "Kill 20 Aquans", Time: time.plus({ hours: 124 }) },
+        { Name: "Vanquish Aquans", Description: "Crab  Frog  Pugil  Sea Monk  Uragnite", Time: time.plus({ hours: 124 }) },
         { Name: "Magic Damage Kills", Description: "Kill 20 Experience Wielding Mobs with Magic Damage", Time: time.plus({ hours: 128 }) },
-        { Name: "Vanquish Plantoids", Description: "Kill 20 Plantoids", Time: time.plus({ hours: 132 }) },
-        { Name: "Vanquish Amorphs", Description: "Kill 20 Amorphs", Time: time.plus({ hours: 136 }) },
-        { Name: "Vanquish Vermin", Description: "Kill 20 Vermin", Time: time.plus({ hours: 140 }) },
+        { Name: "Vanquish Plantoids", Description: "Flytraps  Funguar  Goobbue  Mandragora  Morbol  Sabotender  Sapling  Treant", Time: time.plus({ hours: 132 }) },
+        { Name: "Vanquish Amorphs", Description: "Flan  Hecteyes  Leech  Sandworm  Slime  Slug  Worm", Time: time.plus({ hours: 136 }) },
+        { Name: "Vanquish Vermin", Description: "Antlion  Bee  Beetle  Chigoe  Crawler  Diremite  Fly  Gnat  Ladybug  Scorpion  Spider  Wamoura  Wamouracampa", Time: time.plus({ hours: 140 }) },
         { Name: "Physical Damage Kills", Description: "Kill 20 Experience Wielding Mobs with Physical Damage", Time: time.plus({ hours: 144 }) },
-        { Name: "Vanquish Beasts", Description: "Kill 20 Beasts", Time: time.plus({ hours: 148 }) },
-        { Name: "Vanquish Birds", Description: "Kill 20 Birds", Time: time.plus({ hours: 152 }) },
-        { Name: "Vanquish Lizards", Description: "Kill 20 Lizards", Time: time.plus({ hours: 156 }) },
-        { Name: "Vanquish Undead", Description: "Kill 20 Undead", Time: time.plus({ hours: 160 }) },
+        { Name: "Vanquish Beasts", Description: "Behemoth  Buffalo  Cerberus  Coeurl  Dhalmel  Gnole  Manticore  Marid  Opo-opo  Rabbit  Ram  Sheep  Trger", Time: time.plus({ hours: 148 }) },
+        { Name: "Vanquish Birds", Description: "Amphiptere  Apkallu  Bat  Bat Trio  Cockatrice  Colibri  Greater Bird  Hippogryph  Lesser Bird", Time: time.plus({ hours: 152 }) },
+        { Name: "Vanquish Lizards", Description: "Adamantoise  Bugard  Eft  Hill Lizard  Peiste  Raptor  Wivre", Time: time.plus({ hours: 156 }) },
+        { Name: "Vanquish Undead", Description: "Corse  Doomed  Fomor  Ghost  Hound  Qutrub  Skeleton", Time: time.plus({ hours: 160 }) },
         { Name: "Spoils (Seals)", Description: "Obtain 3 Beastmen-like Seals", Time: time.plus({ hours: 164 }) }
     ];
 }
@@ -119,6 +119,7 @@ function findNextChallengeTime() {
 
     // Set the current and up next challenge names
     $("#ChallengeName").text(challenges[Math.floor(cPeriodCount) % challenges.length].Name);  // Current challenge name
+    $("#ChallengeDescription").text(challenges[Math.floor(cPeriodCount) % challenges.length].Description);
     $("#UpNext").text(challenges[nextPeriod].Name);  // Up next challenge name
 
     // Change the text of id ChallengeNextTime in jquery
@@ -186,6 +187,34 @@ function timerTick() {
         $("#ChallengeTimeRemaining").text(ctr);
     }
 }
+
+function adjustHeadingSize() {
+    var width = window.innerWidth;
+    var heading1 = document.getElementById('challenge1');
+    var heading2 = document.getElementById('challenge2');
+    var heading3 = document.getElementById('challenge3');
+
+    if (width > 768) {
+        heading1.className = 'h3 text-center text-light mt-3 text-wrap';
+        heading2.className = 'h3 text-center text-light mt-3 text-wrap';
+        heading3.className = 'h3 text-center text-light mt-3 text-wrap';
+    } else if (width > 576 && width <= 768) {
+        heading1.className = 'h4 text-center text-light mt-3 text-wrap';
+        heading2.className = 'h4 text-center text-light mt-3 text-wrap';
+        heading3.className = 'h4 text-center text-light mt-3 text-wrap';
+    } else {
+        heading1.className = 'h5 text-center text-light mt-3 text-wrap';
+        heading2.className = 'h5 text-center text-light mt-3 text-wrap';
+        heading3.className = 'h5 text-center text-light mt-3 text-wrap';
+    }
+}
+
+// Run the function on window resize
+window.onresize = adjustHeadingSize;
+
+// Run the function on initial load
+adjustHeadingSize();
+
 
 // Initialize
 challenges = populateChallenges(startTime(DateTime.local().setZone('Asia/Tokyo'), false));
