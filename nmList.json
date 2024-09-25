@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Argus",
+    "location": "Maze of Shakrami",
+    "placeholder": " ",
+    "respawnCooldown": 7200
+  },
+  {
+    "name": "Simurgh",
+    "location": "Rolanberry Fields",
+    "placeholder": " ",
+    "respawnCooldown": 7200
+  },
+  {
+    "name": "King Arthro",
+    "location": "Jugner Forest",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Lord of Onzozo",
+    "location": "Labrynth of Onzozo",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Serket",
+    "location": "Garliage Citadel",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Adamantoise",
+    "location": "Valley of Sorrows",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Behemoth",
+    "location": "Behemoth's Dominion",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Roc",
+    "location": "Sauromonge Champagne",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Shikigami Weapon",
+    "location": "Ro'Maeve",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "King Vinegarroon",
+    "location": "Western Altepa Desert",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Fafnir",
+    "location": " Dragon's Aery",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  },
+  {
+    "name": "Medusa",
+    "location": "Arrapago Reef",
+    "placeholder": " ",
+    "respawnCooldown": 75600
+  }
+]
