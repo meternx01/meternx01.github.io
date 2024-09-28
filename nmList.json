@@ -3,13 +3,13 @@
     "name": "Argus",
     "location": "Maze of Shakrami",
     "placeholder": " ",
-    "respawnCooldown": 7200
+    "respawnCooldown": 75600
   },
   {
     "name": "Simurgh",
     "location": "Rolanberry Fields",
     "placeholder": " ",
-    "respawnCooldown": 7200
+    "respawnCooldown": 75600
   },
   {
     "name": "King Arthro",
@@ -70,5 +70,17 @@
     "location": "Arrapago Reef",
     "placeholder": " ",
     "respawnCooldown": 75600
+  }
+  {
+    "name": "Cerberus",
+    "location": "Mount Zhayolm",
+    "placeholder": " ",
+    "respawnCooldown": 259200
+  }
+  {
+    "name": "Tiamat",
+    "location": "Attohwa Chasm",
+    "placeholder": " ",
+    "respawnCooldown": 259200
   }
 ]
