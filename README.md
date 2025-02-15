@@ -1,55 +1,22 @@
-# Walmart Exercise
+#FFXI Chalenge Timer
 
 
-This Android application is designed to read and display information from a network hosted JSON file. The app retrieves the JSON data using `retrofit2` and parses the JSON data using `gson-converter` presents it in a user-friendly interface using a `RecyclerView`.
+## Description
 
-## Requirements
-- Consume the JSON file from a web resource [here](https://gist.githubusercontent.com/peymano-wmt/32dcb892b06648910ddd40406e37fdab/raw/db25946fd77c5873b0303b858e861ce724e0dcd0/countries.json)
-    - Use Coroutines
-- Display the information in a RecyclerView ordered on how they appear in the JSON
-    - Name of the Country
-    - Region Identifier
-    - Country Code
-    - Capital City
-    ``` 
-  --------------------------------------- 
-  |                                     | 
-  | United States of America, NA     US | 
-  |                                     | 
-  | Washington, D.C.                    | 
-  |                                     | 
-  --------------------------------------- 
-  |                                     | 
-  | Uruguay, SA                      UY | 
-  |                                     | 
-  | Montevideo                          | 
-  |                                     |
-  --------------------------------------- 
+FFXI Chalenge Timer is a tool to help you track the time of the Limited Time Challenge.
 
-- Avoid using the following
-    - Jetpack Compose
-    - Dagger / Hilt
+- Identify what is the current Limited Time Challenge.
+- Track the time remaining in the Limited Time Challenge.
+- Display the next Limited Time Challenge.
+- Show the next few Limited Time Challenges and their time periods.
 
-## Solution
-This is a Kotlin based Android Native app that reads in [this JSON](https://gist.githubusercontent.com/peymano-wmt/32dcb892b06648910ddd40406e37fdab/raw/db25946fd77c5873b0303b858e861ce724e0dcd0/countries.json) and displays the information in a RecyclerView.
+## How to use
 
-Use of the following:
-- Retrofit to read from the web resource
-- Retrofit's GSON converter to parse the incoming JSON
-- Standard RecyclerView with Adapter
-- Error Handling and notifications using Toast for different error conditions
-  - Network Errors
-  - HTTP Errors (non 200 status codes)
-  - Miscellaneous Errors
+There is no user interaction, it will run in the background and update the UI when the time changes.
 
-## Limitations and Possible Improvements
+## Note
 
-Due to the consolidated time window to produce this app, I have identified a few improvements
+It will run in your current timezone. It is calibrated to Japan Standard Time.
 
-- **Add Repository Pattern**: The app currently implements the Retrofit Instance directly in my ViewModel. 
-  - Using a Repository would allow more extensibility for later enhancements such as RoomDB persistence, other data sources, and better testing access.
-- **More Error Handling**: Currently the app finds exceptions in the retrieval of the web resource. Other enhancements may include checking for connectivity, then advising before the request is made rather than reacting to the error in the result.
-  - Such as using `ConnectivtyManager`
-- **Field Validation**: Some countries have no capital city. Add conditions for filling in capital city or an exception.
-  - They seem to be territories, e.g. *United States Minor Outlying Islands*, which would default to *Washington D.C*  
-- **Implement Unit Testing**: Add unit tests to ensure the JSON parsing and data handling logic is robust and error-free.
+This is calibrated to CatseyeXI server. It is based on the server time. It seems to be about a few minutes ahead of the true hour. So this will be approximate. (11:56, 15:56, 19:56, 23:56, 3:56, 7:56, 11:56.)
+For retail servers, their periods are based on the the true hour. (12:00, 4:00, 8:00, 12:00, 16:00, 20:00, 0:00.)
