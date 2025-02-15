@@ -83,12 +83,16 @@ function startTime(time, adjust) {
 
     // Find the last Sunday and subtract 108 seconds to get the start time
     const lastSunday = time.startOf('week').minus({ days: 1 });
-    if (adjust) {
-        return lastSunday.minus({ seconds: 108 });
-    }
-    else {
-        return lastSunday;
-    }
+    
+    // This was legacy for catseye.. which is a bullshit server.. Thanks Carver!
+    // if (adjust) {
+    //     return lastSunday.minus({ seconds: 108 });
+    // }
+    // else {
+    //     return lastSunday;
+    // }
+
+    return lastSunday;
 }
 
 
