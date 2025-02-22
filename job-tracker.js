@@ -99,13 +99,15 @@ const jobNames = [
     const totalPotential = Math.min(spent + unspent, MAX_SPENT);
     const spentFraction = Math.round((totalSpent / MAX_SPENT) * 100);
     const potentialFraction = Math.round((totalPotential / MAX_SPENT) * 100);
+    const remaining = MAX_SPENT - totalPotential;  // Points to go until Master (2100)
     return {
       spentFraction,
       potentialFraction,
       percentage: potentialFraction,
-      text: `Spent: ${totalSpent} / 2100 | Potential: ${totalPotential.toFixed(2)} / 2100 (${potentialFraction}%)`
+      text: `Spent: ${totalSpent} / 2100 | Potential: ${totalPotential.toFixed(2)} / 2100 (${potentialFraction}%) -- ${remaining} To Go`
     };
   }
+  
   
   // Update the progress bars and details for a given job
   function updateJobProgress(jobIndex) {
