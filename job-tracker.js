@@ -99,14 +99,16 @@ const jobNames = [
     const totalPotential = Math.min(spent + unspent, MAX_SPENT);
     const spentFraction = Math.round((totalSpent / MAX_SPENT) * 100);
     const potentialFraction = Math.round((totalPotential / MAX_SPENT) * 100);
-    const remaining = MAX_SPENT - totalPotential;  // Points to go until Master (2100)
+    const remaining = MAX_SPENT - totalPotential;
+    const remainingRounded = roundToSignificant(remaining, 2);
     return {
       spentFraction,
       potentialFraction,
       percentage: potentialFraction,
-      text: `Spent: ${totalSpent} / 2100 | Potential: ${totalPotential.toFixed(2)} / 2100 (${potentialFraction}%) -- ${remaining} To Go`
+      text: `Spent: ${totalSpent} / 2100 | Potential: ${totalPotential.toFixed(2)} / 2100 (${potentialFraction}%) -- ${remainingRounded} To Go`
     };
   }
+  
   
   
   // Update the progress bars and details for a given job
@@ -204,6 +206,15 @@ const jobNames = [
     
     container.innerHTML = html;
   }
+
+  // Rounds x to n significant digits
+function roundToSignificant(x, n) {
+  if (x === 0) return 0;
+  const d = Math.floor(Math.log10(Math.abs(x))) + 1;
+  const factor = Math.pow(10, n - d);
+  return Math.round(x * factor) / factor;
+}
+
   
   document.addEventListener('DOMContentLoaded', function() {
     loadJobsData();
