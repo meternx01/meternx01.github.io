@@ -208,11 +208,15 @@ const jobNames = [
   }
 
   // Rounds x to n significant digits
+//function roundToSignificant(x, n) {
+//   if (x === 0) return 0;
+//   const d = Math.floor(Math.log10(Math.abs(x))) + 1;
+//   const factor = Math.pow(10, n - d);
+//   return Math.round(x * factor) / factor;
+// }
+
 function roundToSignificant(x, n) {
-  if (x === 0) return 0;
-  const d = Math.floor(Math.log10(Math.abs(x))) + 1;
-  const factor = Math.pow(10, n - d);
-  return Math.round(x * factor) / factor;
+  return x.toFixed(2)
 }
 
   
