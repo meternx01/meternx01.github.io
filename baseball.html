@@ -43,6 +43,7 @@
   <div class="input-section">
     <label for="startTime"><strong>Game Start Time (hh:mm:ss):</strong></label>
     <input type="time" id="startTime" step="1">
+    <button onclick="setStartTimeNow()">Set Start Time to Now</button>
   </div>
   
   <table>
@@ -98,6 +99,15 @@
       }
     }
     
+    // Button handler to set the start time input to now.
+    function setStartTimeNow() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      document.getElementById('startTime').value = `${hours}:${minutes}:${seconds}`;
+    }
+    
     function calculateStats() {
       // Get and parse the start time (hh:mm:ss)
       const startTimeValue = document.getElementById('startTime').value;
@@ -106,8 +116,15 @@
         return;
       }
       const now = new Date();
-      // Create a Date object using today's date and the provided time
-      const [startH, startM, startS] = startTimeValue.split(':');
+      
+      // Split the time string and ensure seconds are present.
+      let parts = startTimeValue.split(':');
+      if (parts.length < 3) {
+        parts.push("00");  // Add seconds if missing
+      }
+      const [startH, startM, startS] = parts;
+      
+      // Create a Date object using today's date and the provided time.
       let startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
                                Number(startH), Number(startM), Number(startS));
       
