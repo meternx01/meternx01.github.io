@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Baseball Game Tracker</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+    }
+    h1 { 
+      color: #333; 
+    }
+    table { 
+      border-collapse: collapse; 
+      margin-top: 10px; 
+    }
+    th, td { 
+      padding: 8px 12px; 
+      border: 1px solid #ccc; 
+      text-align: center; 
+    }
+    .input-section {
+      margin-bottom: 20px;
+    }
+    /* Grid container for calculated stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .stat-item {
+      background: #e0e0e0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Baseball Game Tracker</h1>
+  
+  <div class="input-section">
+    <label for="startTime"><strong>Game Start Time (hh:mm:ss):</strong></label>
+    <input type="time" id="startTime" step="1">
+  </div>
+  
+  <table>
+    <tr>
+      <th></th>
+      <th>Team A (Visitors)</th>
+      <th>Team B (Home)</th>
+    </tr>
+    <tr>
+      <td><strong>Pitches</strong></td>
+      <td><input type="number" id="pitchesTeamA" min="0" value="0"></td>
+      <td><input type="number" id="pitchesTeamB" min="0" value="0"></td>
+    </tr>
+    <tr>
+      <td><strong>Batters Faced</strong></td>
+      <td><input type="number" id="battersTeamA" min="0" value="0"></td>
+      <td><input type="number" id="battersTeamB" min="0" value="0"></td>
+    </tr>
+    <tr>
+      <td><strong>Outs</strong></td>
+      <td><input type="number" id="outsTeamA" min="0" value="0"></td>
+      <td><input type="number" id="outsTeamB" min="0" value="0"></td>
+    </tr>
+    <tr>
+      <td><strong>Score</strong></td>
+      <td><input type="number" id="scoreTeamA" min="0" value="0"></td>
+      <td><input type="number" id="scoreTeamB" min="0" value="0"></td>
+    </tr>
+  </table>
+  
+  <button onclick="calculateStats()">Calculate Stats</button>
+  
+  <div id="stats">
+    <!-- Calculated statistics will appear here in a grid -->
+  </div>
+  
+  <script>
+    // Helper to format seconds into mm:ss if under 60 minutes, or hh:mm:ss if 60+ minutes.
+    function formatTime(seconds) {
+      if (seconds >= 3600) {
+        const h = Math.floor(seconds / 3600);
+        const remainder = seconds % 3600;
+        const m = Math.floor(remainder / 60);
+        const s = Math.floor(remainder % 60);
+        return (h < 10 ? "0" : "") + h + ":" + 
+               (m < 10 ? "0" : "") + m + ":" + 
+               (s < 10 ? "0" : "") + s;
+      } else {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return (m < 10 ? "0" : "") + m + ":" + 
+               (s < 10 ? "0" : "") + s;
+      }
+    }
+    
+    function calculateStats() {
+      // Get and parse the start time (hh:mm:ss)
+      const startTimeValue = document.getElementById('startTime').value;
+      if (!startTimeValue) {
+        alert('Please enter a valid start time.');
+        return;
+      }
+      const now = new Date();
+      // Create a Date object using today's date and the provided time
+      const [startH, startM, startS] = startTimeValue.split(':');
+      let startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
+                               Number(startH), Number(startM), Number(startS));
+      
+      // Calculate elapsed time in seconds (if negative, game hasn't started yet)
+      let elapsedSeconds = (now - startTime) / 1000;
+      if (elapsedSeconds < 0) {
+        elapsedSeconds = 0;
+      }
+      
+      // Retrieve team inputs
+      const pitchesTeamA = Number(document.getElementById('pitchesTeamA').value);
+      const pitchesTeamB = Number(document.getElementById('pitchesTeamB').value);
+      const totalPitches = pitchesTeamA + pitchesTeamB;
+      
+      const battersTeamA = Number(document.getElementById('battersTeamA').value);
+      const battersTeamB = Number(document.getElementById('battersTeamB').value);
+      const totalBatters = battersTeamA + battersTeamB;
+      
+      const outsTeamA = Number(document.getElementById('outsTeamA').value);
+      const outsTeamB = Number(document.getElementById('outsTeamB').value);
+      const totalOuts = outsTeamA + outsTeamB;
+      
+      const scoreTeamA = Number(document.getElementById('scoreTeamA').value);
+      const scoreTeamB = Number(document.getElementById('scoreTeamB').value);
+      
+      // Calculate time intervals (seconds per event)
+      const timePerOut = totalOuts > 0 ? elapsedSeconds / totalOuts : 0;
+      const timePerPitch = totalPitches > 0 ? elapsedSeconds / totalPitches : 0;
+      const timePerBatter = totalBatters > 0 ? elapsedSeconds / totalBatters : 0;
+      
+      // Overall ratios
+      const totalBattersPerOut = totalOuts > 0 ? totalBatters / totalOuts : 0;
+      const totalPitchesPerBatter = totalBatters > 0 ? totalPitches / totalBatters : 0;
+      const totalPitchesPerOut = totalOuts > 0 ? totalPitches / totalOuts : 0;
+      
+      // Calculate team-specific ratios
+      const teamAPitchesPerBatter = battersTeamA > 0 ? pitchesTeamA / battersTeamA : 0;
+      const teamBPitchesPerBatter = battersTeamB > 0 ? pitchesTeamB / battersTeamB : 0;
+      const teamAPitchesPerOut = outsTeamA > 0 ? pitchesTeamA / outsTeamA : 0;
+      const teamBPitchesPerOut = outsTeamB > 0 ? pitchesTeamB / outsTeamB : 0;
+      
+      // Determine current inning and half.
+      const inningVisitors = Math.floor(outsTeamA / 3) + 1;
+      const inningHome = Math.floor(outsTeamB / 3) + 1;
+      let inningDisplay = "";
+      if (inningVisitors === inningHome) {
+        inningDisplay = "Top " + inningVisitors;
+      } else if (inningVisitors > inningHome) {
+        inningDisplay = "Bottom " + inningHome;
+      } else {
+        inningDisplay = "Top " + inningVisitors; // fallback
+      }
+      
+      // Determine required total outs for a complete game.
+      const requiredOuts = scoreTeamB > scoreTeamA ? 51 : 54;
+      const percentComplete = ((totalOuts / requiredOuts) * 100).toFixed(1);
+      
+      const estimatedGameTimeSeconds = timePerOut * requiredOuts;
+      const estimatedEndTime = new Date(startTime.getTime() + estimatedGameTimeSeconds * 1000);
+      const estimatedEndTimeStr = estimatedEndTime.toLocaleTimeString();
+      
+      // Build the output grid
+      let output = `<div class="stats-grid">`;
+      output += `<div class="stat-item"><strong>Elapsed Time:</strong> ${formatTime(elapsedSeconds)}</div>`;
+      output += `<div class="stat-item"><strong>Time per Out:</strong> ${formatTime(timePerOut)}</div>`;
+      output += `<div class="stat-item"><strong>Time per Pitch:</strong> ${formatTime(timePerPitch)}</div>`;
+      output += `<div class="stat-item"><strong>Time per Batter:</strong> ${formatTime(timePerBatter)}</div>`;
+      output += `<div class="stat-item"><strong>Batters per Out:</strong> ${totalBattersPerOut.toFixed(2)}</div>`;
+      output += `<div class="stat-item"><strong>Current Inning:</strong> ${inningDisplay} (${percentComplete}% complete)</div>`;
+      output += `<div class="stat-item"><strong>Estimated Total Game Time:</strong> ${formatTime(estimatedGameTimeSeconds)}</div>`;
+      output += `<div class="stat-item"><strong>Estimated End Time:</strong> ${estimatedEndTimeStr}</div>`;
+      output += `<div class="stat-item"><strong>Pitches per Batter:</strong> ${teamAPitchesPerBatter.toFixed(2)} / ${teamBPitchesPerBatter.toFixed(2)} - ${totalPitchesPerBatter.toFixed(2)}</div>`;
+      output += `<div class="stat-item"><strong>Pitches per Out:</strong> ${teamAPitchesPerOut.toFixed(2)} / ${teamBPitchesPerOut.toFixed(2)} - ${totalPitchesPerOut.toFixed(2)}</div>`;
+      output += `</div>`;
+      
+      document.getElementById('stats').innerHTML = output;
+    }
+  </script>
+</body>
+</html>
