@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NCAA Game Time Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    .section { margin-bottom: 2em; }
+    .section h2 { margin-bottom: 0.5em; }
+    label { margin-right: 0.5em; }
+    input, select, button { margin: 0.5em 0.5em 0.5em 0; }
+  </style>
+</head>
+<body>
+  <h1>NCAA Basketball Game Tracker</h1>
+  
+  <!-- Section to set the real-life start time -->
+  <div class="section">
+    <h2>Set Start Time</h2>
+    <button id="setNowBtn">Set Start Time to Now</button>
+    <br>
+    <em>Or enter manually:</em>
+    <br>
+    <label for="startHoursInput">Hours:</label>
+    <input type="number" id="startHoursInput" min="1" max="12" value="12">
+    <label for="startMinutesInput">Minutes:</label>
+    <input type="number" id="startMinutesInput" min="0" max="59" value="00">
+    <label for="startSecondsInput">Seconds:</label>
+    <input type="number" id="startSecondsInput" min="0" max="59" value="00">
+    <select id="startAmpmSelect">
+      <option value="AM">AM</option>
+      <option value="PM">PM</option>
+    </select>
+    <button id="setManualBtn">Set Start Time Manually</button>
+    <div>
+      <strong>Start Time:</strong> <span id="startTimeDisplay">Not Set</span>
+    </div>
+  </div>
+  
+  <!-- Section to update game time -->
+  <div class="section">
+    <h2>Update Game Time</h2>
+    <!-- Radio buttons for half selection -->
+    <label>
+      <input type="radio" name="half" value="first" checked> First Half
+    </label>
+    <label>
+      <input type="radio" name="half" value="second"> Second Half
+    </label>
+    <!-- Wrap the game time inputs in a form so that pressing Enter submits it -->
+    <form id="gameTimeForm">
+      <div>
+        <label for="gameMinutesInput">Time Remaining in Half (Minutes):</label>
+        <input type="number" id="gameMinutesInput" min="0" value="0">
+      </div>
+      <div>
+        <label for="gameSecondsInput">Seconds (tenth precision):</label>
+        <!-- Allow decimals (tenth) by setting step="0.1" -->
+        <input type="number" id="gameSecondsInput" min="0" max="59" step="0.1" value="0">
+      </div>
+      <button id="updateGameTimeBtn" type="submit">Update Game Time</button>
+    </form>
+  </div>
+  
+  <!-- Section to display results -->
+  <div class="section">
+    <h2>Results</h2>
+    <div>
+      <strong>Elapsed Game Time:</strong>
+      <span id="elapsedGameTime">00:00.0</span>
+    </div>
+    <div>
+      <strong>Elapsed Real Time:</strong>
+      <span id="elapsedRealTime">00:00</span>
+    </div>
+    <div>
+      <strong>Ratio (Real/Game):</strong>
+      <span id="timeRatio">-</span>
+    </div>
+    <div>
+      <strong>Estimated Real Life Time Remaining:</strong>
+      <span id="realTimeRemaining">00:00.0</span>
+    </div>
+    <div>
+      <strong>Estimated Time to Completion:</strong>
+      <span id="estimatedCompletion">-</span>
+    </div>
+  </div>
+  
+  <script>
+    // Total game duration in seconds (40 minutes) and half duration (20 minutes)
+    const TOTAL_GAME_DURATION = 40 * 60; // 2400 seconds
+    const HALF_DURATION = 20 * 60; // 1200 seconds
+
+    let startTime = null;  // Will store the start time as a Date object.
+    // Store the previous ratio and completion time for delta display.
+    let previousRatio = null;
+    let previousCompletionTime = null;
+
+    // Function to format a duration (in seconds) to mm:ss.t (one decimal place)
+    function formatGameDuration(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds - minutes * 60;
+      let secsStr = secs.toFixed(1);
+      if (secs < 10) {
+        secsStr = "0" + secsStr;
+      }
+      return `${String(minutes).padStart(2, '0')}:${secsStr}`;
+    }
+    
+    // Function to format a real-life duration (in seconds) as mm:ss or hh:mm:ss if needed.
+    function formatRealDuration(seconds) {
+      if (seconds < 3600) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      } else {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${hours}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
+    }
+    
+    // Function to format a Date object to hh:mm:ss (12-hour format with AM/PM)
+    function formatTime(date) {
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} ${ampm}`;
+    }
+
+    // Option 1: Set start time to the current time.
+    document.getElementById('setNowBtn').addEventListener('click', () => {
+      startTime = new Date();
+      document.getElementById('startTimeDisplay').innerText = formatTime(startTime);
+    });
+
+    // Option 2: Manually set the start time.
+    document.getElementById('setManualBtn').addEventListener('click', () => {
+      const hours = parseInt(document.getElementById('startHoursInput').value, 10);
+      const minutes = parseInt(document.getElementById('startMinutesInput').value, 10) || 0;
+      const seconds = parseInt(document.getElementById('startSecondsInput').value, 10) || 0;
+      const period = document.getElementById('startAmpmSelect').value;
+      
+      let hour24 = hours % 12;
+      if (period === 'PM') {
+        hour24 += 12;
+      }
+      
+      const now = new Date();
+      startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour24, minutes, seconds);
+      
+      document.getElementById('startTimeDisplay').innerText = formatTime(startTime);
+    });
+
+    // Function to update game time; called on form submit (or pressing Enter)
+    function updateGameTime(e) {
+      e.preventDefault(); // Prevent the form from submitting normally.
+      
+      if (!startTime) {
+        alert('Please set the start time first.');
+        return;
+      }
+      
+      // Get selected half from the radio buttons.
+      const half = document.querySelector('input[name="half"]:checked').value;
+      // Get time remaining in the current half.
+      const minutes = parseInt(document.getElementById('gameMinutesInput').value, 10) || 0;
+      const seconds = parseFloat(document.getElementById('gameSecondsInput').value) || 0;
+      const halfRemaining = minutes * 60 + seconds;
+      
+      // Calculate total game time remaining.
+      let totalGameRemaining;
+      if (half === 'first') {
+        totalGameRemaining = halfRemaining + HALF_DURATION;
+      } else {
+        totalGameRemaining = halfRemaining;
+      }
+      
+      // Calculate elapsed game time.
+      const elapsedGameTime = TOTAL_GAME_DURATION - totalGameRemaining;
+      
+      // Capture current real-life time.
+      const updateTime = new Date();
+      // Compute elapsed real time (in whole seconds).
+      const elapsedRealTime = Math.floor((updateTime - startTime) / 1000);
+      
+      // Calculate the ratio (real seconds per game second); avoid division by zero.
+      const ratio = (elapsedGameTime > 0) ? (elapsedRealTime / elapsedGameTime) : 0;
+      
+      // Calculate estimated real-life time remaining (in seconds) using the ratio.
+      const estimatedRealRemaining = ratio * totalGameRemaining;
+      
+      // Calculate estimated time to completion as a Date object.
+      const estimatedCompletionTime = new Date(updateTime.getTime() + estimatedRealRemaining * 1000);
+      
+      // Prepare delta for ratio if a previous update exists.
+      let ratioDeltaHTML = "";
+      if (previousRatio !== null) {
+        const deltaRatio = ratio - previousRatio;
+        const deltaText = (deltaRatio >= 0 ? "+" : "") + deltaRatio.toFixed(2);
+        const deltaColor = deltaRatio < 0 ? "green" : (deltaRatio > 0 ? "yellow" : "black");
+        ratioDeltaHTML = ` <span style="color:${deltaColor}">(${deltaText})</span>`;
+      }
+      
+      // Prepare delta for estimated completion time in mm:ss format.
+      let completionDeltaHTML = "";
+      if (previousCompletionTime !== null) {
+        const deltaMs = estimatedCompletionTime - previousCompletionTime;
+        const deltaSec = Math.abs(deltaMs) / 1000;
+        const deltaMinutes = Math.floor(deltaSec / 60);
+        const deltaSeconds = Math.floor(deltaSec % 60);
+        const formattedDelta = `${String(deltaMinutes).padStart(2, '0')}:${String(deltaSeconds).padStart(2, '0')}`;
+        const sign = deltaMs >= 0 ? "+" : "-";
+        const deltaColor = deltaMs < 0 ? "green" : (deltaMs > 0 ? "yellow" : "black");
+        completionDeltaHTML = ` <span style="color:${deltaColor}">(${sign}${formattedDelta})</span>`;
+      }
+      
+      // Update displays.
+      document.getElementById('elapsedGameTime').innerText = formatGameDuration(elapsedGameTime);
+      document.getElementById('elapsedRealTime').innerText = formatRealDuration(elapsedRealTime);
+      document.getElementById('timeRatio').innerHTML = ratio.toFixed(2) + " sec real / sec game" + ratioDeltaHTML;
+      document.getElementById('realTimeRemaining').innerText = formatGameDuration(estimatedRealRemaining);
+      document.getElementById('estimatedCompletion').innerHTML = formatTime(estimatedCompletionTime) + completionDeltaHTML;
+      
+      // Store current values for next update comparison.
+      previousRatio = ratio;
+      previousCompletionTime = estimatedCompletionTime;
+    }
+    
+    // Listen for the submit event on the game time form (including Enter key).
+    document.getElementById('gameTimeForm').addEventListener('submit', updateGameTime);
+  </script>
+</body>
+</html>
