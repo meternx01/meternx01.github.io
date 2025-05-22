@@ -70,21 +70,32 @@ const jobNames = [
         text: `Maxed out at ${spent} (no next gift).`
       };
     }
-    const range = nextGift - lastGift;
-    const spentInRange = Math.max(0, Math.min(spent - lastGift, range));
-    const potentialTotal = spent + unspent;
-    const potentialInRange = Math.max(0, Math.min(potentialTotal - lastGift, range));
-    const spentFrac = (spentInRange / range) * 100;
-    const potentialFrac = (potentialInRange / range) * 100;
-    const potentialPercentage = Math.round(potentialFrac);
-    const remaining = range - potentialInRange;
-    return {
-      spentFraction: Math.round(spentFrac),
-      potentialFraction: Math.round(potentialFrac),
-      percentage: potentialPercentage,
-      text: `From ${lastGift} to ${nextGift}: Total ${potentialInRange.toFixed(2)} / ${range} (${potentialPercentage}%) -- ${remaining.toFixed(2)} To Go`
-    };
-  }
+    const range         = nextGift - lastGift;
+  const spentFrac     = ((spent - lastGift)          / range) * 100;
+  const potentialFrac = ((spent + unspent - lastGift)/ range) * 100;
+
+  // clamp to 100
+  const clampedSpentFrac     = Math.min(spentFrac,     100);
+  const clampedPotentialFrac = Math.min(potentialFrac, 100);
+
+  // bar widths (whole numbers) and one‐decimal label
+  const spentFraction     = Math.round(clampedSpentFrac);
+  const potentialFraction = Math.round(clampedPotentialFrac);
+  const percentage        = parseFloat(clampedPotentialFrac.toFixed(1));
+
+  // if you also want to avoid negative "remaining", clamp in‐range values here:
+  const potentialInRange = Math.min((spent + unspent) - lastGift, range);
+  const remaining        = range - potentialInRange;
+
+  return {
+    spentFraction,
+    potentialFraction,
+    percentage,   // will never exceed 100.0
+    text: `From ${lastGift} to ${nextGift}: ` +
+          `Total ${potentialInRange.toFixed(2)} / ${range} ` +
+          `(${percentage}%) -- ${remaining.toFixed(2)} To Go`
+  };
+}
   
   /**
    * Computes total progress out of 2100 (Progress to Master).
@@ -95,19 +106,27 @@ const jobNames = [
    * - text: detailed text to display below the bar
    */
   function computeTotalProgress(spent, unspent) {
-    const totalSpent = Math.min(spent, MAX_SPENT);
-    const totalPotential = Math.min(spent + unspent, MAX_SPENT);
-    const spentFraction = Math.round((totalSpent / MAX_SPENT) * 100);
-    const potentialFraction = Math.round((totalPotential / MAX_SPENT) * 100);
-    const remaining = MAX_SPENT - totalPotential;
-    const remainingRounded = roundToSignificant(remaining, 2);
+    const MAX = 2100;  // or whatever your max is
+    const totalSpent     = Math.min(spent, MAX);
+    const totalPotential = Math.min(spent + unspent, MAX);
+  
+    // Bar widths still use integer percentages:
+    const spentFraction     = Math.round((totalSpent    / MAX) * 100);
+    const potentialFraction = Math.round((totalPotential/ MAX) * 100);
+  
+    // Display percentage with one decimal:
+    const percentage = parseFloat(((totalPotential / MAX) * 100).toFixed(1));
+  
+    const remaining = MAX - totalPotential;
+    const remainingRounded = remaining.toFixed(2);
+  
     return {
       spentFraction,
       potentialFraction,
-      percentage: potentialFraction,
-      text: `Spent: ${totalSpent} / 2100 | Potential: ${totalPotential.toFixed(2)} / 2100 (${potentialFraction}%) -- ${remainingRounded} To Go`
+      percentage,   // e.g. 74.3
+      text: `Spent: ${totalSpent} / ${MAX} | Potential: ${totalPotential.toFixed(2)} / ${MAX} (${percentage}%) -- ${remainingRounded} To Go`
     };
-  }
+  }  
   
   
   

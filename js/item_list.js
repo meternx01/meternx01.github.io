@@ -243647,7 +243647,7 @@ var item_basic = [
     "flags": "2052",
     "aH": "@WAIST",
     "NoSale": "0",
-    "BaseSell": "0"
+    "BaseSell": "7425"
   },
   {
     "itemid": "28436",
