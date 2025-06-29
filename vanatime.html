@@ -4,24 +4,48 @@
 <head>
     <meta charset="utf-8">
     <title>VanaTimer Web</title>
+    <!-- at the top of vanatime.html -->
     <link rel="stylesheet" href="vana-timer/styles.css">
+
 </head>
 
 <body>
-    <main class="timer">
-        <h1>Next Vana-day In</h1>
-        <div id="countdown">--:--</div>
-        <span id="next-vana-datetime">--</span>
+    <!-- Tab buttons -->
+    <div class="tabs">
+        <button class="tab-button active" data-tab="vana">Vana-Day Timer</button>
+        <button class="tab-button" data-tab="dynamis">Dynamis Mob Timer</button>
+    </div>
 
-        <section class="info">
-            <p>Current Vana Time: <span id="vana-time">--:--</span></p>
-            <p>Current Vana Day: <span id="vana-day">----</span></p>
-            <p>Time until Tokyo Midnight: <span id="tokyo-midnight-countdown">--:--:--</span></p>
-            <p>Next Reset (Local): <span id="next-reset">--:--</span></p>
-        </section>
-    </main>
+    <!-- Tab panels -->
+    <div class="tab-panel active" id="vana">
+        <div class="card timer-card">
+            <h1>Next Vana-day In</h1>
+            <div id="countdown" class="countdown-text">--:--</div>
+            <section class="info">
+                <p>Next Vana-Day (Earth): <span id="next-vana-datetime">--</span></p>
+                <p>Current Vana Time: <span id="vana-time">--:--</span></p>
+                <p>Current Vana Day: <span id="vana-day">----</span></p>
+                <p>Time until Tokyo Midnight: <span id="tokyo-midnight-countdown">--:--:--</span></p>
+                <p>Next Reset (Mon 00:00 JST): <span id="next-reset">--</span></p>
+            </section>
+        </div>
+    </div>
 
+    <div class="tab-panel" id="dynamis">
+        <div class="card mob-card">
+
+            <p><strong>Mobs:</strong></p> <span id="mob-names">--</span>
+            <p><strong>Time Remaining:</strong></p> <span id="mob-countdown" class="countdown-text">--:--</span>
+
+        </div>
+    </div>
+
+    <!-- scripts (in this order) -->
     <script src="vana-timer/script.js"></script>
+    <script src="vana-timer/dynamis.js"></script>
+    <script src="vana-timer/main.js"></script>
+    <script src="vana-timer/tabs.js"></script>
+
 </body>
 
 </html>
