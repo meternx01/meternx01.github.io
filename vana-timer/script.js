@@ -124,9 +124,6 @@
             `${dayStr}${hStr}:${mStr}:${sStr}`;
     }
 
-    // — start the loop —
-    document.addEventListener('DOMContentLoaded', () => {
-        updateAll();
-        setInterval(updateAll, 1000);
-    });
+window.updateVanaTimer = updateAll;
+
 })();

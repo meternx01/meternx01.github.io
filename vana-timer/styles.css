@@ -1,31 +1,66 @@
 body {
-    font-family: system-ui, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: #f4f4f4;
+  font-family: system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #f4f4f4;
 }
 
 .timer {
-    text-align: center;
-    background: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-#countdown {
-    font-size: 4rem;
-    font-weight: 700;
-    margin: 1rem 0;
+#countdown, #mob-countdown {
+  font-size: 4rem;
+  font-weight: 700;
+  /* margin: 1rem 0; */
+}
+
+#mob-names{
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .info {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 1.5rem;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 1.5rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.mob-timer-card {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  text-align: center;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mob-timer-card .card {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mob-timer-card h1 {
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  text-decoration: underline;
+}
+.mob-timer-card-text{
+  font-size: 1.25rem;
+  /* font-weight: 700; */
+  margin-bottom: 0rem;
+  margin-top: 1.5rem;
 }
