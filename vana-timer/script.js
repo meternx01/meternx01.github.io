@@ -3,10 +3,10 @@
     // — Constants —
     const EPOCH_MS = Date.UTC(2023, 2, 8, 15, 0, 0); // JST Mar 9 00:00
     const TICK_MS = 3456 * 1000;                   // 57m36s in ms
-    const VANA_DAY_NAMES = [
-        'Firesday', 'Earthsday', 'Watersday', 'Windsday',
-        'Iceday', 'Lightningday', 'Lightsday', 'Darksday'
-    ];
+    // const VANA_DAY_NAMES = [
+    //     'Firesday', 'Earthsday', 'Watersday', 'Windsday',
+    //     'Iceday', 'Lightningday', 'Lightsday', 'Darksday'
+    // ];
 
     // — 1) In‐game tick helper —
     function computeLeftMs(nowMs) {
@@ -26,11 +26,11 @@
     }
 
     // — 3) Current Vana-day name every 3456s —
-    function getCurrentVanaDay(nowMs) {
-        const daysSince = Math.floor((nowMs - EPOCH_MS) / TICK_MS);
-        const idx = ((daysSince % 8) + 8) % 8;
-        return VANA_DAY_NAMES[idx];
-    }
+    // function getCurrentVanaDay(nowMs) {
+    //     const daysSince = Math.floor((nowMs - EPOCH_MS) / TICK_MS);
+    //     const idx = ((daysSince % 8) + 8) % 8;
+    //     return VANA_DAY_NAMES[idx];
+    // }
 
     // — 4) Next daily Tokyo midnight (00:00 JST) in UTC-ms —
     function getNextTokyoMidnightMs(nowMs) {
@@ -86,7 +86,7 @@
         document.getElementById('vana-time').textContent = `${vh}:${vm}`;
 
         // c) Current Vana Day
-        document.getElementById('vana-day').textContent = getCurrentVanaDay(nowMs);
+        // document.getElementById('vana-day').textContent = getCurrentVanaDay(nowMs);
 
         // d) Next Vana-Day Earth timestamp
         const nextVanaDate = new Date(nowMs + leftMsTick);
@@ -97,8 +97,8 @@
         const nvSecs = String(nextVanaDate.getSeconds()).padStart(2, '0');
         const nvMon = nextVanaDate.getMonth() + 1;
         const nvDay = nextVanaDate.getDate();
-        const nextVanaText = `${nvMon}/${nvDay} ${nvH}:${nvMins}:${nvSecs} ${nvAMPM}`;
-        document.getElementById('next-vana-datetime').textContent = nextVanaText;
+        document.getElementById('next-vana-datetime').textContent =
+            `${nvMon}/${nvDay} ${nvH}:${nvMins}:${nvSecs} ${nvAMPM}`;
 
         // e) Time until next **daily** Tokyo midnight HH:MM:SS
         const tokMs = getNextTokyoMidnightMs(nowMs);
