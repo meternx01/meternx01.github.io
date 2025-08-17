@@ -23,8 +23,11 @@ body {
      -------------------------------------------------- */
 .tabs {
   display: flex;
+  justify-content: center;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto 1rem auto;
   border-bottom: 1px solid #ddd;
-  margin-bottom: 1rem;
 }
 
 .tab-button {
@@ -44,6 +47,12 @@ body {
   color: #007bff;
 }
 
+@media (max-width: 600px) {
+  .tabs {
+    max-width: 95vw;
+  }
+}
+
 /* --------------------------------------------------
      PANELS
      -------------------------------------------------- */
@@ -61,14 +70,25 @@ body {
      CARD WRAPPER
      -------------------------------------------------- */
 .card {
-  display: inline-block;
-  width: auto;
+  display: block;
+  width: 100%;
+  max-width: 400px;
   background: white;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin: 0 0 1rem 0;
+  margin: 0 auto 1rem auto;
   text-align: left;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem;
+    max-width: 95vw;
+  }
+  .timer-card {
+    max-width: 95vw;
+  }
 }
 
 /* --------------------------------------------------
