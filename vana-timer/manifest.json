@@ -1,0 +1,22 @@
+{
+  "name": "VanaTimer Web",
+  "short_name": "VanaTimer",
+  "start_url": "../vanatime.html",
+  "display": "standalone",
+  "background_color": "#f4f4f4",
+  "theme_color": "#007bff",
+  "description": "VanaTimer for FFXI - track Vana days and Dynamis mobs.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+

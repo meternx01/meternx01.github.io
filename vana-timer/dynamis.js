@@ -6,6 +6,12 @@
     "Sabotender Hippogryph Sheep",
     "Goobbue Manticore Treant"
   ];
+
+  const currency = [
+      "Byne Bill",
+      "Bronzepiece",
+      "Whiteshell",
+  ]
   const MOB_PERIOD_MS = ((8 / 25) * 3600) * 1000; // 1152s × 1000
 
   // 2) Compute next wave info in JST
@@ -22,17 +28,19 @@
     const nextWaveMs = lastMidJstMs + (periodCount + 1) * MOB_PERIOD_MS;
     const leftMs = nextWaveMs - nowJstMs;
     const mobNames = mobList[periodCount % mobList.length];
-    return { leftMs, mobNames };
+    const currencyType = currency[periodCount % currency.length];
+    return { leftMs, mobNames, currencyType  };
   }
 
   // 3) Render/update function
   function updateMobTimer() {
-    const { leftMs, mobNames } = computeMobInfo();
+    const { leftMs, mobNames, currencyType } = computeMobInfo();
     const totalSec = Math.max(0, Math.ceil(leftMs / 1000));
     const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
     const ss = String(totalSec % 60).padStart(2, '0');
 
     document.getElementById('mob-names').textContent = mobNames;
+    document.getElementById('mob-currency').textContent = currencyType;
     document.getElementById('mob-countdown').textContent = `${mm}:${ss}`;
     if (totalSec <= 60) {
       document.getElementById('mob-countdown').style.color = 'red';

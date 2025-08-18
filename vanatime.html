@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8">
     <title>VanaTimer Web</title>
     <!-- at the top of vanatime.html -->
     <link rel="stylesheet" href="vana-timer/styles.css">
+    <link rel="manifest" href="vana-timer/manifest.json">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -34,9 +35,13 @@
     <div class="tab-panel" id="dynamis">
         <div class="card mob-card">
 
-            <p><strong>Mobs:</strong></p> <span id="mob-names">--</span>
-            <p><strong>Time Remaining:</strong></p> <span id="mob-countdown" class="countdown-text">--:--</span>
+            <h4>Mobs to target for JA Red/White Proc's</h4>
+            <p><strong>Mobs:</strong></p>
+            <p><span id="mob-currency">--</span></p> <span id="mob-names">--</span>
 
+           <section class="info">
+            <p><strong>Time Remaining:</strong></p> <span id="mob-countdown" class="countdown-text">--:--</span>
+           </section>
         </div>
     </div>
 
