@@ -17,7 +17,6 @@
  *
  */
 
-const luxon = window.luxon;
 const challengePeriod = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 let nextChallengeTime;
 let currentJapanTime;
@@ -220,14 +219,11 @@ function adjustHeadingSize() {
     }
 }
 
-// Run the function on window resize
-window.onresize = adjustHeadingSize;
-
-// Run the function on initial load
-adjustHeadingSize();
-
-
-// Initialize
-challenges = populateChallenges(startTime(DateTime.local().setZone('Asia/Tokyo')));
-findNextChallengeTime();
-beginTimer();
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize
+    challenges = populateChallenges(startTime(DateTime.local().setZone('Asia/Tokyo')));
+    findNextChallengeTime();
+    beginTimer();
+    adjustHeadingSize();
+    window.onresize = adjustHeadingSize;
+});
