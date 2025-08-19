@@ -67,7 +67,7 @@ function computeGiftProgress(spent, unspent) {
       spentFraction: 100,
       potentialFraction: 100,
       percentage: 100,
-      text: `Maxed out at ${spent} (no next gift).`
+      text: `\u2605 \u2605 \u2605 Mastered \u2605 \u2605 \u2605`
     };
   }
   const range = nextGift - lastGift;
@@ -91,9 +91,7 @@ function computeGiftProgress(spent, unspent) {
     spentFraction,
     potentialFraction,
     percentage,   // will never exceed 100.0
-    text: `From ${lastGift} to ${nextGift}: ` +
-      `Total ${potentialInRange.toFixed(2)} / ${range} ` +
-      `(${percentage}%) -- ${remaining.toFixed(2)} To Go`
+    text: `From ${lastGift} to ${nextGift}: Total ${potentialInRange.toFixed(2)} / ${range} (${percentage}%) -- ${remaining.toFixed(2)} To Go`
   };
 }
 
@@ -224,7 +222,7 @@ function buildJobsTable() {
               <div class="progress" id="gift-progress-bar-${index}"></div>
               <div class="progress-overlay" id="gift-percentage-${index}">${giftInfo.percentage}%</div>
             </div>
-            <div class="mt-1" id="gift-details-${index}">${giftInfo.text}</div>
+            <div class="mt-1 text-center" id="gift-details-${index}">${giftInfo.text}</div>
           </td>
           <td>
             <div class="position-relative">
@@ -252,11 +250,6 @@ function buildJobsTable() {
 //   const factor = Math.pow(10, n - d);
 //   return Math.round(x * factor) / factor;
 // }
-
-function roundToSignificant(x) {
-  return x.toFixed(2)
-}
-
 
 document.addEventListener('DOMContentLoaded', function () {
   loadJobsData();
