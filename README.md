@@ -1,22 +1,36 @@
-#FFXI Chalenge Timer
+# FFXI Challenge Timer & Tools
 
 
 ## Description
 
-FFXI Chalenge Timer is a tool to help you track the time of the Limited Time Challenge.
+This repository contains a suite of tools for Final Fantasy XI, focused on tracking in-game events and progress. The main public tools are:
 
-- Identify what is the current Limited Time Challenge.
-- Track the time remaining in the Limited Time Challenge.
-- Display the next Limited Time Challenge.
-- Show the next few Limited Time Challenges and their time periods.
+- **FFXI Challenge Timer**: Track the current Limited Time Challenge, time remaining, and upcoming challenges. Runs automatically and updates the UI in real time.
+- **VanaTimer Web**: Displays Vana'diel time, next Vana-day, Tokyo midnight countdown, and Dynamis mob timers. Useful for planning in-game activities around Vana'diel time cycles.
+- **Job Points Tracker**: Track your progress for all jobs, showing completion status and overall progress. Designed for easy job point management and visualization.
 
-## How to use
 
-There is no user interaction, it will run in the background and update the UI when the time changes.
 
-## Note
+## How to Use
 
-It will run in your current timezone. It is calibrated to Japan Standard Time.
+- Open the relevant HTML file in your browser (e.g., `index.html` for Challenge Timer, `vanatime.html` for VanaTimer, `job-tracker.html` for Job Points Tracker).
+- No user interaction is required for Challenge Timer and VanaTimer; they update automatically.
+- Job Points Tracker allows you to interactively track your job progress. Progress is stored in your browser.
 
-This is calibrated to CatseyeXI server. It is based on the server time. It seems to be about a few minutes ahead of the true hour. So this will be approximate. (11:56, 15:56, 19:56, 23:56, 3:56, 7:56, 11:56.)
-For retail servers, their periods are based on the the true hour. (12:00, 4:00, 8:00, 12:00, 16:00, 20:00, 0:00.)
+
+## Notes
+
+- All timers run in your current timezone and are calibrated to Japan Standard Time for FFXI event accuracy.
+- Challenge Timer is calibrated for CatseyeXI server (approximate event times) and retail servers (true hour event times).
+
+
+## Folder Structure
+
+- HTML files are in the root directory.
+- App-specific JS/CSS are in their respective folders (`job-tracker/`, `vana-timer/`, `ahpricer/`).
+- Global styles are in `css/styles.css`.
+
+
+---
+
+Made by Meterman. For questions or feedback, see [github.com/meternx01](https://github.com/meternx01).
