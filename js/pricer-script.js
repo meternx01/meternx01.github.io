@@ -1,7 +1,7 @@
 // Helper: Convert string to Title Case.
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      return txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase();
     });
   }
   
@@ -112,4 +112,3 @@ function toTitleCase(str) {
   
   // Initial render.
   renderResults(item_basic);
-  

@@ -2,9 +2,9 @@
 (() => {
   // 1) Configuration: your mob list & period
   const mobList = [
-    "Fly Flytrap Funguar",
-    "Sabotender Hippogryph Sheep",
-    "Goobbue Manticore Treant"
+    ["Fly", "Flytrap", "Funguar"],
+    ["Sabotender", "Hippogryph", "Sheep"],
+    ["Goobbue", "Manticore", "Treant"]
   ];
 
   const currency = [
@@ -27,7 +27,8 @@
     const periodCount = Math.floor(elapsedMs / MOB_PERIOD_MS);
     const nextWaveMs = lastMidJstMs + (periodCount + 1) * MOB_PERIOD_MS;
     const leftMs = nextWaveMs - nowJstMs;
-    const mobNames = mobList[periodCount % mobList.length];
+    const mobNamesArr = mobList[periodCount % mobList.length];
+    const mobNames = mobNamesArr.join('<br>');
     const currencyType = currency[periodCount % currency.length];
     return { leftMs, mobNames, currencyType  };
   }
@@ -39,7 +40,7 @@
     const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
     const ss = String(totalSec % 60).padStart(2, '0');
 
-    document.getElementById('mob-names').textContent = mobNames;
+    document.getElementById('mob-names').innerHTML = mobNames;
     document.getElementById('mob-currency').textContent = currencyType;
     document.getElementById('mob-countdown').textContent = `${mm}:${ss}`;
     if (totalSec <= 60) {

@@ -253,7 +253,7 @@ function buildJobsTable() {
 //   return Math.round(x * factor) / factor;
 // }
 
-function roundToSignificant(x, n) {
+function roundToSignificant(x) {
   return x.toFixed(2)
 }
 

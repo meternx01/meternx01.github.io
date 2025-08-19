@@ -1,6 +1,7 @@
 /**
  * Limited Time Challenges for catseyexi.com
  * Created by Meterman on 2022-5-5
+ * Modified by Meterman on 2025-8-19 - Remove Catseye-specific code RETAIL FOR LIFE!!
  *
  * This website displays the upcoming challenge names and times in the
  * Final Fantasy XI Limited Time Challenges. This was made for the schedule of Catseyexi.com.
@@ -10,19 +11,26 @@
  * https://www.bg-wiki.com/ffxi/Category:Records_of_Eminence#Limited-time_Challenges.
  *
  * This code uses luxon [https://moment.github.io/luxon]. Thanks for your API!
- * Additionally the code uses jQuery [https://jquery.com].
+ * Additionally, the code uses jQuery [https://jquery.com].
  *
- * All I ask, if you use and/or modify this code, please credit Meterman [github.com/meternx01].
+ * All I ask if you use and/or modify this code, please credit Meterman [github.com/meternx01].
  *
  */
+
+const luxon = window.luxon;
 const challengePeriod = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
-let cPeriodCount;
 let nextChallengeTime;
 let currentJapanTime;
 let challenges;
-var DateTime = luxon.DateTime;
-var Duration = luxon.Duration;
+const DateTime = luxon.DateTime;
+const Duration = luxon.Duration;
 
+/**
+ * Generates the list of limited time challenges with their names, descriptions, and scheduled times.
+ *
+ * @param {DateTime} time - The start time for the first challenge period.
+ * @returns {Array<{Name: string, Description: string, Time: DateTime}>} Array of challenge objects.
+ */
 function populateChallenges(time) {
     return [
         { Name: "Magic Damage Kills", Description: "Kill 20 Experience Wielding Mobs with Magic Damage", Time: time },
@@ -75,16 +83,15 @@ function populateChallenges(time) {
  * Calculate the start time of the challenge period based on the given time.
  * The challenge period is Sunday at 10:00:00 AM JST.
  *
- * @param {DateTime} time - The time to calculate the start time from
- * @return {DateTime} The start time of the challenge period
+ * @param {DateTime} time - The time to calculate the start time from.
+ * @returns {DateTime} The start time of the challenge period.
  */
-function startTime(time, adjust) {
+function startTime(time) {
     currentJapanTime = time;
 
     // Find the last Sunday and subtract 108 seconds to get the start time
-    const lastSunday = time.startOf('week').minus({ days: 1 });
-    
-    // This was legacy for catseye.. which is a bullshit server.. Thanks Carver!
+    //const lastSunday = time.startOf('week').minus({ days: 1 });
+    // This was legacy for Catseye... which is a bullshit server... Thanks, Carver!
     // if (adjust) {
     //     return lastSunday.minus({ seconds: 108 });
     // }
@@ -92,24 +99,18 @@ function startTime(time, adjust) {
     //     return lastSunday;
     // }
 
-    return lastSunday;
+    return time.startOf('week').minus({ days: 1 });
 }
 
 
 
 /**
- * Find the next challenge time based on the current time.
- * The next challenge time is calculated by finding the number of challenge periods that have passed
- * since the last Sunday at 10:00:00 AM JST (UTC+9) and adding one to that number.
- * The result is then modded by the number of challenges to get the next challenge index.
- * The next challenge time is then calculated by adding the number of challenge periods to the start time.
+ * Find and update the next challenge time and related UI elements based on the current time.
  *
- * The start time is calculated by finding the last Sunday at 10:00:00 AM JST and subtracting 108 seconds.
- *
- * The current and up next challenge names and times are updated in the HTML.
+ * Updates the challenge name, description, up next challenge, and times in the HTML.
  */
 function findNextChallengeTime() {
-    const lastSundayTime = startTime(DateTime.local().setZone('Asia/Tokyo'), 1);  // Last Sunday at 10:00:00 AM JST
+    const lastSundayTime = startTime(DateTime.local().setZone('Asia/Tokyo'));  // Last Sunday at 10:00:00 AM JST
 
     // Calculate the number of challenge periods that have passed
     const dayDiff = currentJapanTime.diff(lastSundayTime, 'milliseconds');  // Milliseconds since last Sunday
@@ -142,10 +143,10 @@ function findNextChallengeTime() {
 
 
 /**
- * Adjust the input time to the local timezone of the user
+ * Adjust the input time to the local timezone of the user and format it for display.
  *
- * @param {DateTime} inputTime The time to be localized
- * @returns The localized time in the format of "MM/dd h:mm:ss a"
+ * @param {DateTime} inputTime - The time to be localized.
+ * @returns {string} The localized time in the format of "MM/dd h:mm:ss a".
  */
 function localizeTime(inputTime) {
     // Get the timezone of the user from the browser's settings
@@ -158,7 +159,8 @@ function localizeTime(inputTime) {
 
 
 /**
- * Begin the timer that updates the time until the next challenge every second
+ * Begin the timer that updates the time until the next challenge every second.
+ * Sets an interval to call timerTick every second.
  */
 function beginTimer() {
     // Set an interval to call the timerTick function every second
@@ -167,6 +169,7 @@ function beginTimer() {
 
 /**
  * Called every second to update the time until the next challenge.
+ * Updates the countdown display in the UI.
  */
 function timerTick() {
     // Get current time in Japan
@@ -183,8 +186,8 @@ function timerTick() {
     // If the time until the next challenge is less than 1 hour,
     // format the time as minutes:seconds
     if (timeDiff < 3600 * 1000) {
-        var ctr = Duration.fromMillis(timeDiff).toFormat('mm:ss');
-        $("#ChallengeTimeRemaining").text(ctr);
+        var counter = Duration.fromMillis(timeDiff).toFormat('mm:ss');
+        $("#ChallengeTimeRemaining").text(counter);
     } else {
         // Otherwise, format the time as hours:minutes:seconds
         var ctr = Duration.fromMillis(timeDiff).toFormat('h:mm:ss');
@@ -192,6 +195,10 @@ function timerTick() {
     }
 }
 
+/**
+ * Adjusts the heading size of challenge elements based on the window width.
+ * Used for responsive design.
+ */
 function adjustHeadingSize() {
     var width = window.innerWidth;
     var heading1 = document.getElementById('challenge1');
@@ -221,9 +228,6 @@ adjustHeadingSize();
 
 
 // Initialize
-challenges = populateChallenges(startTime(DateTime.local().setZone('Asia/Tokyo'), false));
+challenges = populateChallenges(startTime(DateTime.local().setZone('Asia/Tokyo')));
 findNextChallengeTime();
 beginTimer();
-
-
-
