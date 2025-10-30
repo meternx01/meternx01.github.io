@@ -99,9 +99,13 @@ function toTitleCase(str) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       const query = document.getElementById('searchBox').value.trim();
+      if (query === '') {
+          document.getElementById('results').value = '';
+          return
+      }
       const filtered = filterItems(query);
       renderResults(filtered);
-    }, 300);
+    }, 600);
   }
   
   const searchBox = document.getElementById('searchBox');
@@ -111,4 +115,4 @@ function toTitleCase(str) {
   searchButton.addEventListener('click', doSearch);
   
   // Initial render.
-  renderResults(item_basic);
+  // renderResults(item_basic);
