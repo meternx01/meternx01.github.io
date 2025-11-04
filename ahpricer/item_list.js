@@ -4342,7 +4342,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "241"
+    "BaseSell": "245"
   },
   {
     "itemid": "530",
@@ -6652,7 +6652,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@GOLDSMITHING",
     "NoSale": "0",
-    "BaseSell": "850"
+    "BaseSell": "867"
   },
   {
     "itemid": "740",
@@ -6740,7 +6740,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@GOLDSMITHING",
     "NoSale": "0",
-    "BaseSell": "16000"
+    "BaseSell": "16320"
   },
   {
     "itemid": "748",
@@ -8368,7 +8368,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@BONECRAFT",
     "NoSale": "0",
-    "BaseSell": "582"
+    "BaseSell": "612"
   },
   {
     "itemid": "896",
@@ -10722,7 +10722,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "8700"
+    "BaseSell": "8874"
   },
   {
     "itemid": "1133",
@@ -11063,7 +11063,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "210"
+    "BaseSell": "214"
   },
   {
     "itemid": "1164",
@@ -11778,7 +11778,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "213"
+    "BaseSell": "217"
   },
   {
     "itemid": "1229",
@@ -12691,7 +12691,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@BONECRAFT",
     "NoSale": "0",
-    "BaseSell": "13250"
+    "BaseSell": "13515"
   },
   {
     "itemid": "1312",
@@ -12713,7 +12713,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "6000"
+    "BaseSell": "6120"
   },
   {
     "itemid": "1314",
@@ -14341,7 +14341,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "3975"
+    "BaseSell": "4054"
   },
   {
     "itemid": "1462",
@@ -14429,7 +14429,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "265"
+    "BaseSell": "270"
   },
   {
     "itemid": "1470",
@@ -14946,7 +14946,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@LEATHERCRAFT",
     "NoSale": "0",
-    "BaseSell": "265"
+    "BaseSell": "270"
   },
   {
     "itemid": "1517",
@@ -17003,7 +17003,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "350"
+    "BaseSell": "357"
   },
   {
     "itemid": "1704",
@@ -17091,7 +17091,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "7800"
+    "BaseSell": "7958"
   },
   {
     "itemid": "1712",
@@ -17421,7 +17421,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@LEATHERCRAFT",
     "NoSale": "0",
-    "BaseSell": "300"
+    "BaseSell": "306"
   },
   {
     "itemid": "1742",
@@ -22129,7 +22129,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@LEATHERCRAFT",
     "NoSale": "0",
-    "BaseSell": "780"
+    "BaseSell": "795"
   },
   {
     "itemid": "2170",
@@ -22448,7 +22448,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "940"
+    "BaseSell": "958"
   },
   {
     "itemid": "2199",
@@ -22470,7 +22470,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "0"
+    "BaseSell": "4131"
   },
   {
     "itemid": "2201",
@@ -23284,7 +23284,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "98"
+    "BaseSell": "99"
   },
   {
     "itemid": "2275",
@@ -23295,7 +23295,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@GOLDSMITHING",
     "NoSale": "0",
-    "BaseSell": "4312"
+    "BaseSell": "4398"
   },
   {
     "itemid": "2276",
@@ -27310,7 +27310,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@MISC",
     "NoSale": "0",
-    "BaseSell": "353"
+    "BaseSell": "351"
   },
   {
     "itemid": "2642",
@@ -40147,7 +40147,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@WOODWORKING",
     "NoSale": "1",
-    "BaseSell": "3080"
+    "BaseSell": "3141"
   },
   {
     "itemid": "3927",
@@ -41170,7 +41170,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "79"
+    "BaseSell": "1035"
   },
   {
     "itemid": "4021",
@@ -42589,7 +42589,7 @@ var item_basic = [
     "flags": "1540",
     "aH": "@MEDICINES",
     "NoSale": "0",
-    "BaseSell": "3900"
+    "BaseSell": "3978"
   },
   {
     "itemid": "4150",
@@ -50575,7 +50575,7 @@ var item_basic = [
     "flags": "34444",
     "aH": "@BLACK MAGIC",
     "NoSale": "0",
-    "BaseSell": "43"
+    "BaseSell": "10237"
   },
   {
     "itemid": "4926",
@@ -52027,7 +52027,7 @@ var item_basic = [
     "flags": "34444",
     "aH": "@SONGS",
     "NoSale": "0",
-    "BaseSell": "3507"
+    "BaseSell": "3577"
   },
   {
     "itemid": "5080",
@@ -62653,7 +62653,7 @@ var item_basic = [
     "flags": "34444",
     "aH": "@WHITE MAGIC",
     "NoSale": "0",
-    "BaseSell": "1815"
+    "BaseSell": "1851"
   },
   {
     "itemid": "6063",
@@ -63082,7 +63082,7 @@ var item_basic = [
     "flags": "34444",
     "aH": "@GEOMANCER",
     "NoSale": "1",
-    "BaseSell": "9240"
+    "BaseSell": "9424"
   },
   {
     "itemid": "6102",
@@ -69814,7 +69814,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@BONECRAFT",
     "NoSale": "0",
-    "BaseSell": "11000"
+    "BaseSell": "11220"
   },
   {
     "itemid": "8720",
@@ -75061,7 +75061,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@MISC 2",
     "NoSale": "0",
-    "BaseSell": "178"
+    "BaseSell": "181"
   },
   {
     "itemid": "9215",
@@ -176712,7 +176712,7 @@ var item_basic = [
     "flags": "34820",
     "aH": "@INSTRUMENTS",
     "NoSale": "0",
-    "BaseSell": "7153"
+    "BaseSell": "7522"
   },
   {
     "itemid": "18839",
