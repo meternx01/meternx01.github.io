@@ -48991,7 +48991,7 @@ var item_basic = [
     "flags": "34444",
     "aH": "@WHITE MAGIC",
     "NoSale": "0",
-    "BaseSell": "3025"
+    "BaseSell": "6000"
   },
   {
     "itemid": "4749",
@@ -50817,7 +50817,7 @@ var item_basic = [
     "flags": "34444",
     "aH": "@NINJUTSU",
     "NoSale": "0",
-    "BaseSell": "1599"
+    "BaseSell": "1500"
   },
   {
     "itemid": "4949",
@@ -176712,7 +176712,7 @@ var item_basic = [
     "flags": "34820",
     "aH": "@INSTRUMENTS",
     "NoSale": "0",
-    "BaseSell": "7522"
+    "BaseSell": "7375"
   },
   {
     "itemid": "18839",
