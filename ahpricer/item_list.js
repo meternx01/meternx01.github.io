@@ -5607,7 +5607,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@GOLDSMITHING",
     "NoSale": "0",
-    "BaseSell": "250"
+    "BaseSell": "255"
   },
   {
     "itemid": "645",
@@ -7598,7 +7598,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "160"
+    "BaseSell": "163"
   },
   {
     "itemid": "826",
@@ -7719,7 +7719,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@CLOTHCRAFT",
     "NoSale": "0",
-    "BaseSell": "5000"
+    "BaseSell": "5100"
   },
   {
     "itemid": "837",
@@ -12174,8 +12174,8 @@ var item_basic = [
     "flags": "4",
     "aH": "@ALCHEMY",
     "NoSale": "0",
-    "BaseSell": "4125"
-  },
+    "BaseSell": "841"
+   },
   {
     "itemid": "1265",
     "subid": "0",
@@ -14341,7 +14341,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "4054"
+    "BaseSell": "3975"
   },
   {
     "itemid": "1462",
@@ -17091,7 +17091,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "7958"
+    "BaseSell": "7956"
   },
   {
     "itemid": "1712",
@@ -40059,7 +40059,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@SMITHING",
     "NoSale": "0",
-    "BaseSell": "600"
+    "BaseSell": "612"
   },
   {
     "itemid": "3919",
@@ -41896,7 +41896,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@MISC",
     "NoSale": "0",
-    "BaseSell": "20"
+    "BaseSell": "142"
   },
   {
     "itemid": "4087",
@@ -41907,7 +41907,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@MISC",
     "NoSale": "0",
-    "BaseSell": "20"
+    "BaseSell": "142"
   },
   {
     "itemid": "4088",
@@ -41918,7 +41918,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@MISC",
     "NoSale": "0",
-    "BaseSell": "20"
+    "BaseSell": "142"
   },
   {
     "itemid": "4089",
@@ -72542,7 +72542,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@MISC 2",
     "NoSale": "0",
-    "BaseSell": "600"
+    "BaseSell": "61"
   },
   {
     "itemid": "8970",
@@ -176712,8 +176712,8 @@ var item_basic = [
     "flags": "34820",
     "aH": "@INSTRUMENTS",
     "NoSale": "0",
-    "BaseSell": "7375"
-  },
+    "BaseSell": "7322"
+   },
   {
     "itemid": "18839",
     "subid": "0",
