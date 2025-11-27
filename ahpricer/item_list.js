@@ -11899,7 +11899,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@BEAST MADE",
     "NoSale": "0",
-    "BaseSell": "30"
+    "BaseSell": "102"
   },
   {
     "itemid": "1240",
@@ -12086,7 +12086,7 @@ var item_basic = [
     "flags": "4",
     "aH": "@GOLDSMITHING",
     "NoSale": "0",
-    "BaseSell": "3706"
+    "BaseSell": "3697"
   },
   {
     "itemid": "1257",
