@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AH Pricer</title>
-  <link rel="stylesheet" href="ahpricer/pricer-style.css">
+    <meta charset="UTF-8">
+    <title>AH Pricer</title>
+    <link rel="stylesheet" href="ahpricer/pricer-style.css">
 </head>
 <body>
-  <header>
+<header>
     <h1>AH Pricer</h1>
+    <p class="itemLastUpdate"></p>
     <p>Search to get the recommended minimum AH Posting Price</p>
     <div id="searchArea">
-      <label for="searchBox" class="visually-hidden">Search Item Name</label>
-      <input type="text" id="searchBox" placeholder="Enter item name...">
-      <button id="searchButton">Search</button>
+        <label for="searchBox" class="visually-hidden">Search Item Name</label>
+        <input type="text" id="searchBox" placeholder="Enter item name...">
+        <button id="searchButton">Search</button>
     </div>
-  </header>
+</header>
 
-  <div id="results"></div>
+<div id="results"></div>
 
-  <!-- Include your converted item data -->
-  <script src="ahpricer/item_list.js"></script>
-  <script src="ahpricer/pricer-script.js"></script>
+<!-- Include your converted item data -->
+<script src="ahpricer/item_list.js"></script>
+<script src="ahpricer/pricer-script.js"></script>
+<script src="ahpricer/show-last-commit.js"></script>
+
 </body>
 </html>
