@@ -72553,8 +72553,8 @@ var item_basic = [
     "flags": "4",
     "aH": "@MISC 2",
     "NoSale": "0",
-    "BaseSell": "600"
-  },
+    "BaseSell": "61"
+   },
   {
     "itemid": "8971",
     "subid": "0",
@@ -243889,7 +243889,7 @@ var item_basic = [
     "flags": "34820",
     "aH": "@WAIST",
     "NoSale": "0",
-    "BaseSell": "100"
+    "BaseSell": "5232"
   },
   {
     "itemid": "28459",
