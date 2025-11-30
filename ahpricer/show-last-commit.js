@@ -32,7 +32,7 @@
         const date = dateStr ? new Date(dateStr) : null;
 
         container.textContent = date
-            ? `Last commit: ${date.toLocaleString()} — ${msg} — ${author}`
+            ? date.toLocaleString()
             : `Last commit: ${msg} — ${author}`;
     } catch (err) {
         container.textContent = `Could not fetch commit info: ${err.message}`;
