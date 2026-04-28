@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FFXI Buylist</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #161a22;
+    --panel-2: #1d2230;
+    --border: #262c3a;
+    --text: #e7ecf3;
+    --muted: #8b94a7;
+    --accent: #6aa9ff;
+    --good: #3ec46d;
+    --warn: #f3b13b;
+    --bad: #e5594d;
+    --row-alt: #131722;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --panel-2: #f1f3f8;
+      --border: #d8dde6;
+      --text: #1a1f2b;
+      --muted: #5a6478;
+      --accent: #1f6feb;
+      --row-alt: #f6f7fb;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--accent); }
+  h1, h2, h3 { margin: 0 0 8px; font-weight: 600; }
+  h1 { font-size: 20px; }
+  h2 { font-size: 15px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { font-size: 14px; }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--panel);
+    position: sticky; top: 0; z-index: 5;
+  }
+  header .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  main { display: grid; grid-template-columns: minmax(0,1fr) 360px; gap: 16px; padding: 16px; max-width: 1500px; margin: 0 auto; }
+  @media (max-width: 1100px) { main { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 16px;
+  }
+  .panel + .panel { margin-top: 0; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px 12px; }
+  label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 2px; }
+  input, button, select, textarea {
+    font: inherit; color: inherit; background: var(--panel-2);
+    border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;
+  }
+  input[type="number"], input[type="text"], input[type="url"], input[type="date"] { width: 100%; }
+  input:focus, button:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button { cursor: pointer; }
+  button.primary { background: var(--accent); color: white; border-color: transparent; }
+  button.danger { color: var(--bad); }
+  button.ghost { background: transparent; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--muted); padding: 8px 6px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--panel);
+  }
+  tbody td { padding: 4px 6px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tbody tr:nth-child(even) { background: var(--row-alt); }
+  tbody td input { background: transparent; border: 1px solid transparent; padding: 4px 6px; }
+  tbody td input:hover { border-color: var(--border); }
+  tbody td input:focus { background: var(--panel-2); border-color: var(--accent); }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .num input { text-align: right; font-variant-numeric: tabular-nums; }
+  .pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .pill.good { background: rgba(62,196,109,0.15); color: var(--good); }
+  .pill.warn { background: rgba(243,177,59,0.15); color: var(--warn); }
+  .pill.bad  { background: rgba(229,89,77,0.18); color: var(--bad); }
+  .stat {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 6px 0; border-bottom: 1px dashed var(--border);
+  }
+  .stat:last-child { border-bottom: none; }
+  .stat .k { color: var(--muted); }
+  .stat .v { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .toast {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 14px; box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    z-index: 50;
+  }
+  .muted { color: var(--muted); }
+  details { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+  details > summary { cursor: pointer; color: var(--muted); }
+  .bookmarklet {
+    display: inline-block; padding: 6px 12px; border-radius: 6px;
+    background: var(--accent); color: white !important; text-decoration: none; font-weight: 600;
+  }
+  textarea { width: 100%; min-height: 80px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+  th.col-actions, td.col-actions { width: 36px; text-align: center; }
+  th.col-needed, td.col-needed { width: 80px; }
+  th.col-stock, td.col-stock, th.col-median, td.col-median, th.col-sub, td.col-sub { width: 130px; }
+  th.col-pct, td.col-pct { width: 70px; }
+  th.col-aff, td.col-aff { width: 90px; }
+  .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .footer { padding: 16px; text-align: center; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>FFXI Buylist</h1>
+  <div class="actions">
+    <button id="btn-add">+ Add item</button>
+    <button id="btn-export" class="ghost">Export</button>
+    <button id="btn-import" class="ghost">Import</button>
+    <button id="btn-reset" class="ghost danger" title="Clear all data">Reset</button>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="panel">
+      <h2>Buylist</h2>
+      <div style="overflow:auto">
+        <table id="items">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th class="col-needed num">Needed</th>
+              <th class="col-stock num">Stock</th>
+              <th class="col-median num">Median (gil)</th>
+              <th class="col-sub num">Subtotal</th>
+              <th class="col-aff num" title="How many you can afford with gil only, allocated top-down">Aff. (gil)</th>
+              <th class="col-aff num" title="How many you can afford with gil + sparks-converted shields, allocated top-down">Aff. (g+s)</th>
+              <th class="col-pct num">% Cov.</th>
+              <th class="col-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="items-body"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="num muted">Total list cost</td>
+              <td class="num"><strong id="total-cost">0</strong></td>
+              <td colspan="4"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="hint">Click any cell to edit. The URL editor is under each row's chevron. Order matters: per-item affordability allocates top-down, like the spreadsheet.</div>
+    </div>
+
+    <div class="panel">
+      <h2>ETA tracker</h2>
+      <div class="grid3">
+        <div><label>Start date</label><input type="date" id="eta-start-date"></div>
+        <div><label>Start gil</label><input type="number" id="eta-start-gil" min="0"></div>
+        <div><label>Target date</label><input type="date" id="eta-target-date"></div>
+      </div>
+      <div class="stat"><span class="k">Gil/day required to hit list total by target</span><span class="v" id="eta-required">—</span></div>
+      <div class="stat"><span class="k">Gil/day actual since start</span><span class="v" id="eta-actual">—</span></div>
+      <div class="stat"><span class="k">Projected completion at current rate</span><span class="v" id="eta-projected">—</span></div>
+      <div class="stat"><span class="k">Days vs. target (negative = ahead)</span><span class="v" id="eta-delta">—</span></div>
+    </div>
+  </section>
+
+  <aside>
+    <div class="panel">
+      <h2>Currency</h2>
+      <div class="grid2">
+        <div><label>Gil on hand</label><input type="number" id="gil-on-hand" min="0"></div>
+        <div><label>Gil reserve (keep after)</label><input type="number" id="gil-reserve" min="0"></div>
+        <div><label>Sparks on hand</label><input type="number" id="sparks" min="0"></div>
+        <div><label>Copper vouchers</label><input type="number" id="vouchers" min="0"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Affordability</h2>
+      <div class="stat"><span class="k">Gil available (on hand − reserve)</span><span class="v" id="gil-available">0</span></div>
+      <div class="stat"><span class="k">List total</span><span class="v" id="list-total-2">0</span></div>
+      <div class="stat"><span class="k">Surplus / shortfall (gil only)</span><span class="v" id="diff-gil">0</span></div>
+      <div class="stat"><span class="k">% covered (gil only)</span><span class="v" id="pct-gil">0%</span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Sparks → Acheron Shields</h2>
+      <div class="stat"><span class="k">Sparks total (incl. vouchers)</span><span class="v" id="sparks-total">0</span></div>
+      <div class="stat"><span class="k">Shields buyable now</span><span class="v" id="shields-now">0</span></div>
+      <div class="stat"><span class="k">Gil from selling shields</span><span class="v" id="gil-from-shields">0</span></div>
+      <div class="stat"><span class="k">Total funds (gil + shields)</span><span class="v" id="total-funds">0</span></div>
+      <div class="stat"><span class="k">Surplus / shortfall (g+s)</span><span class="v" id="diff-gs">0</span></div>
+      <div class="stat"><span class="k">% covered (g+s)</span><span class="v" id="pct-gs">0%</span></div>
+      <div class="stat"><span class="k">Shields still to buy</span><span class="v" id="shields-togo">0</span></div>
+    </div>
+
+    <div class="panel">
+      <h2>FFXIAH bookmarklet</h2>
+      <p class="hint">Drag this link to your bookmarks bar. Open an FFXIAH item page (e.g. <code>ffxiah.com/item/9254/...</code>) and click it to push the median &amp; stock into a row matching that URL here.</p>
+      <p><a id="bookmarklet" class="bookmarklet" href="#">📎 Push to Buylist</a></p>
+      <details>
+        <summary>How it works</summary>
+        <p class="hint">The bookmarklet reads the median &amp; stock from the FFXIAH page DOM, then opens this app's URL with the data in the URL hash. The app finds the row whose URL matches the current FFXIAH page and updates it. If no row matches, it offers to add a new one.</p>
+        <p class="hint">If FFXIAH ever changes their page layout the bookmarklet might miss the values — open the browser console for diagnostics.</p>
+      </details>
+    </div>
+
+    <div class="panel">
+      <h2>Settings</h2>
+      <div class="grid2">
+        <div><label>Sparks / Acheron Shield</label><input type="number" id="set-sparks-per-shield" min="1"></div>
+        <div><label>Gil / Shield (resale)</label><input type="number" id="set-gil-per-shield" min="1"></div>
+        <div><label>Sparks / Copper Voucher</label><input type="number" id="set-sparks-per-voucher" min="1"></div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<div class="footer">All data lives in your browser's localStorage. No server, no tracking.</div>
+
+<dialog id="io-dialog">
+  <form method="dialog" style="min-width:520px;display:flex;flex-direction:column;gap:8px">
+    <h3 id="io-title">Export</h3>
+    <textarea id="io-text" spellcheck="false"></textarea>
+    <div class="row" style="justify-content:flex-end">
+      <button value="cancel">Close</button>
+      <button id="io-confirm" value="default" class="primary" type="button">Apply</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+"use strict";
+
+// ---------- State ----------
+const STORAGE_KEY = "ffxi-buylist@v1";
+
+const DEFAULTS = {
+  items: [
+    { id: uid(), name: "Faulpie Leather", url: "https://www.ffxiah.com/item/9254/faulpie-leather", needed: 3, median: 0,        stock: 0 },
+    { id: uid(), name: "Cypress Log",     url: "https://www.ffxiah.com/item/9251/khoma-thread",    needed: 1, median: 1126125,  stock: 0 },
+    { id: uid(), name: "Cyan Orb",        url: "https://www.ffxiah.com/item/9256/cyan-orb",        needed: 1, median: 0,        stock: 0 },
+  ],
+  finance: {
+    gilOnHand: 29142808,    // 29092808 + 50000 from sheet
+    gilReserve: 26000000,
+    sparks: 8664,
+    vouchers: 2,
+  },
+  settings: {
+    sparksPerShield: 2755,
+    gilPerShield: 27550,
+    sparksPerVoucher: 1000,
+  },
+  eta: {
+    startDate: null,
+    startGil: 0,
+    targetDate: null,
+  },
+};
+
+let state = load();
+
+function uid() { return Math.random().toString(36).slice(2, 10); }
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return structuredClone(DEFAULTS);
+    const parsed = JSON.parse(raw);
+    // shallow-merge with defaults so new fields get filled in
+    return {
+      items: Array.isArray(parsed.items) ? parsed.items.map(normalizeItem) : structuredClone(DEFAULTS.items),
+      finance: { ...DEFAULTS.finance, ...(parsed.finance || {}) },
+      settings: { ...DEFAULTS.settings, ...(parsed.settings || {}) },
+      eta: { ...DEFAULTS.eta, ...(parsed.eta || {}) },
+    };
+  } catch (e) {
+    console.warn("Failed to load state, falling back to defaults", e);
+    return structuredClone(DEFAULTS);
+  }
+}
+
+function normalizeItem(it) {
+  return {
+    id: it.id || uid(),
+    name: it.name || "",
+    url: it.url || "",
+    needed: +it.needed || 0,
+    median: +it.median || 0,
+    stock: +it.stock || 0,
+  };
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ---------- Calculations ----------
+function calc() {
+  const s = state.settings;
+  const f = state.finance;
+
+  let listTotal = 0;
+  for (const it of state.items) listTotal += (it.median || 0) * (it.needed || 0);
+
+  const gilAvailable = Math.max(0, (f.gilOnHand || 0) - (f.gilReserve || 0));
+  const sparksTotal  = (f.sparks || 0) + (f.vouchers || 0) * (s.sparksPerVoucher || 0);
+  const shieldsNow   = Math.floor(sparksTotal / Math.max(1, s.sparksPerShield));
+  const gilFromShields = shieldsNow * (s.gilPerShield || 0);
+  const totalFunds   = gilAvailable + gilFromShields;
+
+  const diffGil = gilAvailable - listTotal;
+  const diffGS  = totalFunds   - listTotal;
+  const pctGil  = listTotal > 0 ? gilAvailable / listTotal : (listTotal === 0 ? 1 : 0);
+  const pctGS   = listTotal > 0 ? totalFunds   / listTotal : (listTotal === 0 ? 1 : 0);
+  const shieldsToGo = diffGS >= 0 ? 0 : Math.ceil(-diffGS / Math.max(1, s.gilPerShield));
+
+  // Per-item top-down affordability
+  let remainGil = gilAvailable;
+  let remainGS  = totalFunds;
+  const perItem = state.items.map(it => {
+    const price = it.median || 0;
+    const need = it.needed || 0;
+    let aGil = 0, aGS = 0;
+    if (price > 0 && need > 0) {
+      aGil = Math.min(Math.floor(remainGil / price), need);
+      aGS  = Math.min(Math.floor(remainGS  / price), need);
+      remainGil -= aGil * price;
+      remainGS  -= aGS  * price;
+    }
+    return {
+      id: it.id,
+      subtotal: price * need,
+      affGil: aGil,
+      affGS: aGS,
+      pctCov: need > 0 ? aGS / need : 1,
+    };
+  });
+
+  return { listTotal, gilAvailable, sparksTotal, shieldsNow, gilFromShields, totalFunds, diffGil, diffGS, pctGil, pctGS, shieldsToGo, perItem };
+}
+
+// ---------- Formatting ----------
+const nf = new Intl.NumberFormat();
+function fmt(n) { return nf.format(Math.round(n || 0)); }
+function fmtSigned(n) {
+  if (n == null) return "—";
+  const s = nf.format(Math.round(Math.abs(n)));
+  return n >= 0 ? "+" + s : "−" + s;
+}
+function fmtPct(p) {
+  if (!isFinite(p)) return "—";
+  return (p * 100).toFixed(1) + "%";
+}
+function pctClass(p) {
+  if (p >= 1) return "good";
+  if (p >= 0.7) return "warn";
+  return "bad";
+}
+
+// ---------- Render ----------
+const tbody = document.getElementById("items-body");
+
+function renderItems(perItem) {
+  const map = Object.fromEntries(perItem.map(p => [p.id, p]));
+  tbody.innerHTML = "";
+  state.items.forEach((it, idx) => {
+    const p = map[it.id] || { subtotal: 0, affGil: 0, affGS: 0, pctCov: 0 };
+    const tr = document.createElement("tr");
+    tr.dataset.id = it.id;
+    tr.innerHTML = `
+      <td>
+        <input class="f-name" type="text" value="${escapeAttr(it.name)}" placeholder="Item name">
+        <details>
+          <summary class="hint">${it.url ? '🔗 ' + escapeHTML(shortUrl(it.url)) : 'set URL…'}</summary>
+          <input class="f-url" type="url" value="${escapeAttr(it.url)}" placeholder="https://www.ffxiah.com/item/...">
+        </details>
+      </td>
+      <td class="num"><input class="f-needed num" type="number" min="0" value="${it.needed || 0}"></td>
+      <td class="num"><input class="f-stock num"  type="number" min="0" value="${it.stock  || 0}"></td>
+      <td class="num"><input class="f-median num" type="number" min="0" value="${it.median || 0}"></td>
+      <td class="num">${fmt(p.subtotal)}</td>
+      <td class="num">${p.affGil} / ${it.needed || 0}</td>
+      <td class="num">${p.affGS} / ${it.needed || 0}</td>
+      <td class="num"><span class="pill ${pctClass(p.pctCov)}">${fmtPct(p.pctCov)}</span></td>
+      <td class="col-actions">
+        <button class="ghost btn-up"   title="Move up"   ${idx === 0 ? "disabled" : ""}>▲</button>
+        <button class="ghost btn-down" title="Move down" ${idx === state.items.length - 1 ? "disabled" : ""}>▼</button>
+        <button class="ghost danger btn-del" title="Delete">×</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function escapeHTML(s) { return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c])); }
+function escapeAttr(s) { return escapeHTML(s); }
+function shortUrl(u) { try { const url = new URL(u); return url.hostname.replace(/^www\./,'') + url.pathname; } catch { return u; } }
+
+function renderAll() {
+  const c = calc();
+  renderItems(c.perItem);
+  document.getElementById("total-cost").textContent = fmt(c.listTotal);
+  document.getElementById("list-total-2").textContent = fmt(c.listTotal);
+  document.getElementById("gil-available").textContent = fmt(c.gilAvailable);
+  document.getElementById("diff-gil").textContent = fmtSigned(c.diffGil);
+  document.getElementById("pct-gil").textContent = fmtPct(c.pctGil);
+  document.getElementById("sparks-total").textContent = fmt(c.sparksTotal);
+  document.getElementById("shields-now").textContent  = fmt(c.shieldsNow);
+  document.getElementById("gil-from-shields").textContent = fmt(c.gilFromShields);
+  document.getElementById("total-funds").textContent = fmt(c.totalFunds);
+  document.getElementById("diff-gs").textContent  = fmtSigned(c.diffGS);
+  document.getElementById("pct-gs").textContent   = fmtPct(c.pctGS);
+  document.getElementById("shields-togo").textContent = fmt(c.shieldsToGo);
+
+  document.getElementById("diff-gil").className = "v " + (c.diffGil >= 0 ? "" : "");
+  paintColor("diff-gil",  c.diffGil  >= 0 ? "good" : "bad");
+  paintColor("diff-gs",   c.diffGS   >= 0 ? "good" : "bad");
+  paintColor("pct-gil",   pctClass(c.pctGil));
+  paintColor("pct-gs",    pctClass(c.pctGS));
+
+  renderEta(c.listTotal);
+}
+
+function paintColor(id, cls) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.color = cls === "good" ? "var(--good)" : cls === "warn" ? "var(--warn)" : cls === "bad" ? "var(--bad)" : "";
+}
+
+// ---------- ETA ----------
+function renderEta(listTotal) {
+  const e = state.eta || {};
+  const f = state.finance;
+  const today = new Date(); today.setHours(0,0,0,0);
+  // Parse YYYY-MM-DD as local midnight (avoid UTC off-by-one)
+  const parseLocal = s => { if (!s) return null; const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+  const start = parseLocal(e.startDate);
+  const target = parseLocal(e.targetDate);
+  const startGil = +e.startGil || 0;
+  const currentGil = +f.gilOnHand || 0;
+
+  let required = "—", actual = "—", projected = "—", delta = "—";
+
+  if (target) {
+    const daysToTarget = Math.max(0, Math.round((target - today) / 86400000));
+    const need = Math.max(0, listTotal - (currentGil - (+f.gilReserve || 0)));
+    required = daysToTarget > 0 ? fmt(need / daysToTarget) + " /day" : (need === 0 ? "already there" : "target is today/past");
+  }
+  if (start) {
+    const daysSinceStart = Math.max(1, Math.round((today - start) / 86400000));
+    const earned = currentGil - startGil;
+    const rate = earned / daysSinceStart;
+    actual = fmt(rate) + " /day";
+    if (rate > 0 && listTotal > 0) {
+      const need = Math.max(0, listTotal - (currentGil - (+f.gilReserve || 0)));
+      const daysNeeded = need <= 0 ? 0 : need / rate;
+      const proj = new Date(today.getTime() + daysNeeded * 86400000);
+      projected = need <= 0 ? "already there" : proj.toISOString().slice(0,10);
+      if (target) {
+        const d = Math.round((proj - target) / 86400000);
+        delta = (d <= 0 ? "−" : "+") + Math.abs(d) + " day" + (Math.abs(d) === 1 ? "" : "s");
+      }
+    } else if (rate <= 0) {
+      actual = fmt(rate) + " /day (not progressing)";
+    }
+  }
+  document.getElementById("eta-required").textContent = required;
+  document.getElementById("eta-actual").textContent = actual;
+  document.getElementById("eta-projected").textContent = projected;
+  document.getElementById("eta-delta").textContent = delta;
+}
+
+// ---------- Wiring ----------
+function bindFinanceSettings() {
+  const map = [
+    ["gil-on-hand",  "finance",  "gilOnHand"],
+    ["gil-reserve",  "finance",  "gilReserve"],
+    ["sparks",       "finance",  "sparks"],
+    ["vouchers",     "finance",  "vouchers"],
+    ["set-sparks-per-shield",  "settings", "sparksPerShield"],
+    ["set-gil-per-shield",     "settings", "gilPerShield"],
+    ["set-sparks-per-voucher", "settings", "sparksPerVoucher"],
+    ["eta-start-gil", "eta", "startGil"],
+  ];
+  for (const [id, group, key] of map) {
+    const el = document.getElementById(id);
+    el.value = state[group][key] ?? "";
+    el.addEventListener("input", () => {
+      state[group][key] = +el.value || 0;
+      save(); renderAll();
+    });
+  }
+  for (const [id, key] of [["eta-start-date", "startDate"], ["eta-target-date", "targetDate"]]) {
+    const el = document.getElementById(id);
+    el.value = state.eta[key] || "";
+    el.addEventListener("input", () => {
+      state.eta[key] = el.value || null;
+      save(); renderAll();
+    });
+  }
+}
+
+tbody.addEventListener("input", e => {
+  const tr = e.target.closest("tr"); if (!tr) return;
+  const id = tr.dataset.id;
+  const it = state.items.find(x => x.id === id); if (!it) return;
+  if (e.target.classList.contains("f-name"))   it.name   = e.target.value;
+  if (e.target.classList.contains("f-url"))    it.url    = e.target.value;
+  if (e.target.classList.contains("f-needed")) it.needed = +e.target.value || 0;
+  if (e.target.classList.contains("f-stock"))  it.stock  = +e.target.value || 0;
+  if (e.target.classList.contains("f-median")) it.median = +e.target.value || 0;
+  save();
+  // Light update: subtotal & totals only — don't re-render rows or focus is lost
+  renderTotalsOnly();
+});
+
+tbody.addEventListener("click", e => {
+  const tr = e.target.closest("tr"); if (!tr) return;
+  const id = tr.dataset.id;
+  const idx = state.items.findIndex(x => x.id === id);
+  if (idx < 0) return;
+  if (e.target.classList.contains("btn-del")) {
+    if (confirm(`Delete "${state.items[idx].name || 'this item'}"?`)) {
+      state.items.splice(idx, 1);
+      save(); renderAll();
+    }
+  } else if (e.target.classList.contains("btn-up") && idx > 0) {
+    [state.items[idx-1], state.items[idx]] = [state.items[idx], state.items[idx-1]];
+    save(); renderAll();
+  } else if (e.target.classList.contains("btn-down") && idx < state.items.length - 1) {
+    [state.items[idx+1], state.items[idx]] = [state.items[idx], state.items[idx+1]];
+    save(); renderAll();
+  }
+});
+
+function renderTotalsOnly() {
+  const c = calc();
+  document.getElementById("total-cost").textContent = fmt(c.listTotal);
+  document.getElementById("list-total-2").textContent = fmt(c.listTotal);
+  document.getElementById("diff-gil").textContent = fmtSigned(c.diffGil);
+  document.getElementById("pct-gil").textContent = fmtPct(c.pctGil);
+  document.getElementById("diff-gs").textContent  = fmtSigned(c.diffGS);
+  document.getElementById("pct-gs").textContent   = fmtPct(c.pctGS);
+  document.getElementById("shields-togo").textContent = fmt(c.shieldsToGo);
+  // Update each row's computed cells without rebuilding inputs
+  const map = Object.fromEntries(c.perItem.map(p => [p.id, p]));
+  tbody.querySelectorAll("tr").forEach(tr => {
+    const p = map[tr.dataset.id]; if (!p) return;
+    const tds = tr.querySelectorAll("td");
+    // 0:Item 1:Needed 2:Stock 3:Median 4:Subtotal 5:Aff(gil) 6:Aff(g+s) 7:%Cov 8:Actions
+    tds[4].textContent = fmt(p.subtotal);
+    const it = state.items.find(x => x.id === tr.dataset.id);
+    tds[5].textContent = `${p.affGil} / ${it ? it.needed : 0}`;
+    tds[6].textContent = `${p.affGS} / ${it ? it.needed : 0}`;
+    tds[7].innerHTML = `<span class="pill ${pctClass(p.pctCov)}">${fmtPct(p.pctCov)}</span>`;
+  });
+  paintColor("diff-gil",  c.diffGil  >= 0 ? "good" : "bad");
+  paintColor("diff-gs",   c.diffGS   >= 0 ? "good" : "bad");
+  paintColor("pct-gil",   pctClass(c.pctGil));
+  paintColor("pct-gs",    pctClass(c.pctGS));
+  renderEta(c.listTotal);
+}
+
+document.getElementById("btn-add").addEventListener("click", () => {
+  state.items.push({ id: uid(), name: "", url: "", needed: 1, median: 0, stock: 0 });
+  save(); renderAll();
+});
+
+document.getElementById("btn-reset").addEventListener("click", () => {
+  if (!confirm("Wipe all buylist data and reload defaults?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = load();
+  renderAll(); bindFinanceSettings();
+  toast("Reset to defaults.");
+});
+
+// ---------- Import / Export ----------
+const ioDialog = document.getElementById("io-dialog");
+const ioTitle = document.getElementById("io-title");
+const ioText = document.getElementById("io-text");
+const ioConfirm = document.getElementById("io-confirm");
+
+document.getElementById("btn-export").addEventListener("click", () => {
+  ioTitle.textContent = "Export (copy this JSON)";
+  ioText.value = JSON.stringify(state, null, 2);
+  ioText.readOnly = true;
+  ioConfirm.style.display = "none";
+  ioDialog.showModal();
+});
+
+document.getElementById("btn-import").addEventListener("click", () => {
+  ioTitle.textContent = "Import (paste JSON)";
+  ioText.value = "";
+  ioText.readOnly = false;
+  ioConfirm.style.display = "";
+  ioDialog.showModal();
+});
+
+ioConfirm.addEventListener("click", () => {
+  try {
+    const parsed = JSON.parse(ioText.value);
+    if (!parsed || !Array.isArray(parsed.items)) throw new Error("missing items array");
+    state = {
+      items: parsed.items.map(normalizeItem),
+      finance: { ...DEFAULTS.finance, ...(parsed.finance || {}) },
+      settings: { ...DEFAULTS.settings, ...(parsed.settings || {}) },
+      eta: { ...DEFAULTS.eta, ...(parsed.eta || {}) },
+    };
+    save(); renderAll(); bindFinanceSettings();
+    ioDialog.close();
+    toast("Imported.");
+  } catch (e) {
+    alert("Import failed: " + e.message);
+  }
+});
+
+// ---------- Bookmarklet ----------
+function buildBookmarkletHref() {
+  const targetUrl = location.origin + location.pathname;
+  // The bookmarklet runs on ffxiah.com; pulls median + stock from the page DOM
+  // and opens this app's URL with data in the hash.
+  const code = `(function(){
+    function num(s){var m=String(s||'').replace(/[,\\s]/g,'').match(/-?\\d+/);return m?parseInt(m[0],10):0;}
+    function findByLabel(label){
+      var labelLc=label.toLowerCase();
+      // Prefer table rows
+      var rows=document.querySelectorAll('tr');
+      for(var i=0;i<rows.length;i++){
+        var cells=rows[i].querySelectorAll('th,td');
+        for(var j=0;j<cells.length-1;j++){
+          var t=(cells[j].textContent||'').trim().replace(/:$/,'').toLowerCase();
+          if(t===labelLc){var v=num(cells[j+1].textContent);if(v)return v;}
+        }
+      }
+      // Then any element + its next sibling
+      var els=document.querySelectorAll('th,td,dt,dd,span,div,b,strong,p,li');
+      for(var k=0;k<els.length;k++){
+        var tt=(els[k].textContent||'').trim().replace(/:$/,'').toLowerCase();
+        if(tt===labelLc){
+          var sib=els[k].nextElementSibling;
+          if(sib){var vv=num(sib.textContent);if(vv)return vv;}
+        }
+      }
+      // Last resort: regex on body text
+      var bodyText=document.body.innerText||'';
+      var re=new RegExp(label+'\\\\s*:?\\\\s*([0-9,\\\\.]+)','i');
+      var m=bodyText.match(re);
+      return m?num(m[1]):0;
+    }
+    var nameEl=document.querySelector('h1,h2,.itemname,#itemname,title');
+    var name=(nameEl&&nameEl.textContent||document.title||'').trim();
+    var median=findByLabel('Median');
+    var stock=findByLabel('Stock');
+    if(!median){alert('Could not find a Median value on this page.');return;}
+    var payload={url:location.href,name:name,median:median,stock:stock,ts:Date.now()};
+    var b64=btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+    var dest=${JSON.stringify(targetUrl)}+'#ffxiah='+b64;
+    window.open(dest,'_blank');
+  })();`;
+  return "javascript:" + encodeURI(code.replace(/\s+/g, " "));
+}
+
+function refreshBookmarklet() {
+  document.getElementById("bookmarklet").href = buildBookmarkletHref();
+}
+
+// ---------- Hash import (from bookmarklet) ----------
+function consumeHashImport() {
+  const m = location.hash.match(/^#ffxiah=(.+)$/);
+  if (!m) return;
+  let payload;
+  try {
+    payload = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+  } catch (e) {
+    console.warn("Could not decode FFXIAH payload", e);
+    return;
+  }
+  history.replaceState(null, "", location.pathname + location.search);
+
+  const norm = u => (u || "").replace(/\/+$/,'').toLowerCase();
+  const target = norm(payload.url);
+  let item = state.items.find(it => norm(it.url) === target);
+  if (!item) {
+    // try item-id match: /item/12345/...
+    const idMatch = target.match(/\/item\/(\d+)/);
+    if (idMatch) {
+      item = state.items.find(it => (it.url || "").includes("/item/" + idMatch[1] + "/") || (it.url || "").includes("/item/" + idMatch[1]));
+    }
+  }
+  if (!item) {
+    if (confirm(`No buylist row matches that URL. Add "${payload.name}" as a new item?`)) {
+      item = { id: uid(), name: payload.name, url: payload.url, needed: 1, median: 0, stock: 0 };
+      state.items.push(item);
+    } else {
+      return;
+    }
+  }
+  if (payload.median) item.median = payload.median;
+  if (payload.stock != null) item.stock = payload.stock;
+  if (!item.name && payload.name) item.name = payload.name;
+  save(); renderAll();
+  toast(`Updated "${item.name || 'item'}": median ${fmt(item.median)}, stock ${fmt(item.stock)}.`);
+}
+
+// ---------- Toast ----------
+let toastTimer = null;
+function toast(msg) {
+  let el = document.querySelector(".toast");
+  if (!el) { el = document.createElement("div"); el.className = "toast"; document.body.appendChild(el); }
+  el.textContent = msg;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.remove(); }, 2400);
+}
+
+// ---------- Boot ----------
+bindFinanceSettings();
+renderAll();
+refreshBookmarklet();
+consumeHashImport();
+</script>
+</body>
+</html> 2400);
+}
+
+// ---------- Boot ----------
+bindFinanceSettings();
+renderAll();
+refreshBookmarklet();
+consumeHashImport();
+</script>
+</body>
+</html>
+
+</html>
