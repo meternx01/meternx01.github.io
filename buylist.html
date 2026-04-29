@@ -202,13 +202,21 @@
 
     <div class="panel">
       <h2>FFXIAH bookmarklet</h2>
-      <p class="hint">Drag this link to your bookmarks bar. Open an FFXIAH item page (e.g. <code>ffxiah.com/item/9254/...</code>) and click it to push the median &amp; stock into a row matching that URL here.</p>
-      <p><a id="bookmarklet" class="bookmarklet" href="#">📎 Push to Buylist</a></p>
+      <p class="hint"><strong>Drag</strong> the button below onto your bookmarks bar (don't just click it). On an FFXIAH item page like <code>ffxiah.com/item/9254/...</code>, click the bookmark and the median &amp; stock get pushed into the matching row here.</p>
+      <p><a id="bookmarklet" class="bookmarklet" href="#" draggable="true">📎 Push to Buylist</a></p>
       <details>
-        <summary>How it works</summary>
-        <p class="hint">The bookmarklet reads the median &amp; stock from the FFXIAH page DOM, then opens this app's URL with the data in the URL hash. The app finds the row whose URL matches the current FFXIAH page and updates it. If no row matches, it offers to add a new one.</p>
-        <p class="hint">If FFXIAH ever changes their page layout the bookmarklet might miss the values — open the browser console for diagnostics.</p>
+        <summary>Doesn't work? Console-paste fallback</summary>
+        <p class="hint">If your browser blocks the bookmark or the new tab, copy the snippet below, open DevTools on the FFXIAH item page (F12 → Console), paste, hit Enter.</p>
+        <textarea id="bookmarklet-code" readonly spellcheck="false" style="min-height:120px"></textarea>
+        <p class="hint">If the median can't be found, the bookmarklet logs <code>[buylist bookmarklet]</code> to the console and shows an alert. Open the console to see what it captured.</p>
       </details>
+    </div>
+
+    <div class="panel">
+      <h2>Manual price paste</h2>
+      <p class="hint">Or paste a JSON like <code>{"url":"https://www.ffxiah.com/item/9254/...","median":1234567,"stock":5}</code> to update the matching row.</p>
+      <textarea id="manual-paste" placeholder='{"url":"...","median":1234567,"stock":5}'></textarea>
+      <div class="row" style="margin-top:6px"><button id="btn-manual-apply" class="primary">Apply</button></div>
     </div>
 
     <div class="panel">
@@ -631,7 +639,6 @@ function buildBookmarkletHref() {
     function num(s){var m=String(s||'').replace(/[,\\s]/g,'').match(/-?\\d+/);return m?parseInt(m[0],10):0;}
     function findByLabel(label){
       var labelLc=label.toLowerCase();
-      // Prefer table rows
       var rows=document.querySelectorAll('tr');
       for(var i=0;i<rows.length;i++){
         var cells=rows[i].querySelectorAll('th,td');
@@ -640,7 +647,6 @@ function buildBookmarkletHref() {
           if(t===labelLc){var v=num(cells[j+1].textContent);if(v)return v;}
         }
       }
-      // Then any element + its next sibling
       var els=document.querySelectorAll('th,td,dt,dd,span,div,b,strong,p,li');
       for(var k=0;k<els.length;k++){
         var tt=(els[k].textContent||'').trim().replace(/:$/,'').toLowerCase();
@@ -649,27 +655,63 @@ function buildBookmarkletHref() {
           if(sib){var vv=num(sib.textContent);if(vv)return vv;}
         }
       }
-      // Last resort: regex on body text
       var bodyText=document.body.innerText||'';
       var re=new RegExp(label+'\\\\s*:?\\\\s*([0-9,\\\\.]+)','i');
       var m=bodyText.match(re);
       return m?num(m[1]):0;
     }
-    var nameEl=document.querySelector('h1,h2,.itemname,#itemname,title');
+    var nameEl=document.querySelector('h1.itemname,.itemname,h1,h2');
     var name=(nameEl&&nameEl.textContent||document.title||'').trim();
     var median=findByLabel('Median');
     var stock=findByLabel('Stock');
-    if(!median){alert('Could not find a Median value on this page.');return;}
+    try{console.log('[buylist bookmarklet]',{url:location.href,name:name,median:median,stock:stock});}catch(_){}
+    if(!median){alert('Buylist bookmarklet: could not find a Median value on this page.\\nOpen the browser console for details.');return;}
     var payload={url:location.href,name:name,median:median,stock:stock,ts:Date.now()};
     var b64=btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
     var dest=${JSON.stringify(targetUrl)}+'#ffxiah='+b64;
-    window.open(dest,'_blank');
+    var w=null;try{w=window.open(dest,'_blank');}catch(e){}
+    if(!w){location.href=dest;}
   })();`;
-  return "javascript:" + encodeURI(code.replace(/\s+/g, " "));
+  // Minify whitespace, then percent-encode the WHOLE body so URL-significant
+  // chars like #, ?, &, % don't get parsed by the browser's URL parser.
+  // Browsers decode %XX in javascript: URIs before invoking the JS engine,
+  // so the original code is what executes.
+  const minified = code.replace(/\s+/g, " ").trim();
+  return "javascript:" + encodeURIComponent(minified);
 }
 
 function refreshBookmarklet() {
-  document.getElementById("bookmarklet").href = buildBookmarkletHref();
+  const href = buildBookmarkletHref();
+  document.getElementById("bookmarklet").href = href;
+  // Populate the console-paste fallback with decoded JS
+  const codeEl = document.getElementById("bookmarklet-code");
+  if (codeEl) codeEl.value = decodeURIComponent(href.slice("javascript:".length));
+}
+
+function applyPayload(payload) {
+  if (!payload || typeof payload !== "object") { toast("Invalid payload."); return; }
+  const norm = u => (u || "").replace(/\/+$/,'').toLowerCase();
+  const target = norm(payload.url);
+  let item = target ? state.items.find(it => norm(it.url) === target) : null;
+  if (!item && target) {
+    const idMatch = target.match(/\/item\/(\d+)/);
+    if (idMatch) {
+      item = state.items.find(it => (it.url || "").includes("/item/" + idMatch[1]));
+    }
+  }
+  if (!item) {
+    if (confirm(`No buylist row matches that URL. Add "${payload.name || 'this item'}" as a new item?`)) {
+      item = { id: uid(), name: payload.name || "", url: payload.url || "", needed: 1, median: 0, stock: 0 };
+      state.items.push(item);
+    } else {
+      return;
+    }
+  }
+  if (payload.median != null) item.median = +payload.median || 0;
+  if (payload.stock  != null) item.stock  = +payload.stock  || 0;
+  if (!item.name && payload.name) item.name = payload.name;
+  save(); renderAll();
+  toast(`Updated "${item.name || 'item'}": median ${fmt(item.median)}, stock ${fmt(item.stock)}.`);
 }
 
 // ---------- Hash import (from bookmarklet) ----------
@@ -684,31 +726,20 @@ function consumeHashImport() {
     return;
   }
   history.replaceState(null, "", location.pathname + location.search);
-
-  const norm = u => (u || "").replace(/\/+$/,'').toLowerCase();
-  const target = norm(payload.url);
-  let item = state.items.find(it => norm(it.url) === target);
-  if (!item) {
-    // try item-id match: /item/12345/...
-    const idMatch = target.match(/\/item\/(\d+)/);
-    if (idMatch) {
-      item = state.items.find(it => (it.url || "").includes("/item/" + idMatch[1] + "/") || (it.url || "").includes("/item/" + idMatch[1]));
-    }
-  }
-  if (!item) {
-    if (confirm(`No buylist row matches that URL. Add "${payload.name}" as a new item?`)) {
-      item = { id: uid(), name: payload.name, url: payload.url, needed: 1, median: 0, stock: 0 };
-      state.items.push(item);
-    } else {
-      return;
-    }
-  }
-  if (payload.median) item.median = payload.median;
-  if (payload.stock != null) item.stock = payload.stock;
-  if (!item.name && payload.name) item.name = payload.name;
-  save(); renderAll();
-  toast(`Updated "${item.name || 'item'}": median ${fmt(item.median)}, stock ${fmt(item.stock)}.`);
+  applyPayload(payload);
 }
+
+// ---------- Manual paste ----------
+document.getElementById("btn-manual-apply").addEventListener("click", () => {
+  const ta = document.getElementById("manual-paste");
+  const txt = (ta.value || "").trim();
+  if (!txt) return;
+  let payload;
+  try { payload = JSON.parse(txt); }
+  catch (e) { alert("Could not parse JSON: " + e.message); return; }
+  applyPayload(payload);
+  ta.value = "";
+});
 
 // ---------- Toast ----------
 let toastTimer = null;
@@ -727,16 +758,4 @@ refreshBookmarklet();
 consumeHashImport();
 </script>
 </body>
-</html> 2400);
-}
-
-// ---------- Boot ----------
-bindFinanceSettings();
-renderAll();
-refreshBookmarklet();
-consumeHashImport();
-</script>
-</body>
-</html>
-
 </html>
